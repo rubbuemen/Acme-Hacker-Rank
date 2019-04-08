@@ -11,17 +11,33 @@
 package controllers;
 
 import org.apache.commons.lang.exception.ExceptionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.ClassUtils;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.servlet.ModelAndView;
+
+import services.ActorService;
+import services.SystemConfigurationService;
+import domain.SystemConfiguration;
 
 @Controller
 public class AbstractController {
 
+	@Autowired
+	SystemConfigurationService	systemConfigurationService;
+
+	@Autowired
+	ActorService				actorService;
+
+
 	// Panic handler ----------------------------------------------------------
 
 	@ExceptionHandler(Throwable.class)
+	@ModelAttribute
 	public ModelAndView panic(final Throwable oops) {
 		ModelAndView result;
 
@@ -31,6 +47,22 @@ public class AbstractController {
 		result.addObject("stackTrace", ExceptionUtils.getStackTrace(oops));
 
 		return result;
+	}
+
+	@ModelAttribute
+	public void systemConfiguration(final Model model) {
+		SystemConfiguration systemConfiguration;
+		final String language = LocaleContextHolder.getLocale().getLanguage();
+
+		systemConfiguration = this.systemConfigurationService.getConfiguration();
+
+		model.addAttribute("nameSystem", systemConfiguration.getNameSystem());
+		model.addAttribute("bannerUrl", systemConfiguration.getBannerUrl());
+		if (language.equals("en"))
+			model.addAttribute("welcomeMessage", systemConfiguration.getWelcomeMessageEnglish());
+		else
+			model.addAttribute("welcomeMessage", systemConfiguration.getWelcomeMessageSpanish());
+
 	}
 
 }

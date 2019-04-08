@@ -20,9 +20,12 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.Transient;
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
+import org.hibernate.validator.constraints.SafeHtml;
+import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.util.Assert;
 
@@ -52,10 +55,13 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	private String					password;
 	private Collection<Authority>	authorities;
 
+	private Boolean					statusAccount;
+
 
 	@Size(min = 5, max = 32)
 	@Column(unique = true)
 	@Override
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getUsername() {
 		return this.username;
 	}
@@ -66,6 +72,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 
 	@Size(min = 5, max = 32)
 	@Override
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getPassword() {
 		return this.password;
 	}
@@ -110,7 +117,7 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Transient
 	@Override
 	public boolean isAccountNonLocked() {
-		return true;
+		return this.getStatusAccount();
 	}
 
 	@Transient
@@ -122,7 +129,15 @@ public class UserAccount extends DomainEntity implements UserDetails {
 	@Transient
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return this.getStatusAccount();
 	}
 
+	@NotNull
+	public Boolean getStatusAccount() {
+		return this.statusAccount;
+	}
+
+	public void setStatusAccount(final Boolean statusAccount) {
+		this.statusAccount = statusAccount;
+	}
 }

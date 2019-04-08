@@ -1,4 +1,4 @@
- <%--
+<%--
  * login.jsp
  *
  * Copyright (C) 2019 Universidad de Sevilla
@@ -31,12 +31,19 @@
 	<form:password path="password" />	
 	<form:errors class="error" path="password" />
 	<br />
-	
-	<jstl:if test="${showError == true}">
-		<div class="error">
+
+	<jstl:choose>
+		<jstl:when test="${banned == true}">
+        <div class="error">
+			<spring:message code="security.login.banned" />
+		</div>
+		</jstl:when>
+		<jstl:when test="${showError == true}">
+       <div class="error">
 			<spring:message code="security.login.failed" />
 		</div>
-	</jstl:if>
+		</jstl:when>
+	</jstl:choose>
 	
 	<input type="submit" value="<spring:message code="security.login" />" />
 	

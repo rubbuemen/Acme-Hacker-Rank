@@ -29,7 +29,10 @@ public class LoginController extends AbstractController {
 	// Supporting services ----------------------------------------------------
 
 	@Autowired
-	LoginService	service;
+	LoginService			service;
+
+	@Autowired
+	UserAccountRepository	userRepository;
 
 
 	// Constructors -----------------------------------------------------------
@@ -41,15 +44,17 @@ public class LoginController extends AbstractController {
 	// Login ------------------------------------------------------------------
 
 	@RequestMapping("/login")
-	public ModelAndView login(@Valid final Credentials credentials, final BindingResult bindingResult, @RequestParam(required = false) final boolean showError) {
+	public ModelAndView login(@Valid final Credentials credentials, final BindingResult bindingResult, @RequestParam(required = false) final boolean showError, @RequestParam(required = false) final boolean banned) {
 		Assert.notNull(credentials);
 		Assert.notNull(bindingResult);
 
 		ModelAndView result;
 
 		result = new ModelAndView("security/login");
+
 		result.addObject("credentials", credentials);
 		result.addObject("showError", showError);
+		result.addObject("banned", banned);
 
 		return result;
 	}
@@ -57,10 +62,10 @@ public class LoginController extends AbstractController {
 	// LoginFailure -----------------------------------------------------------
 
 	@RequestMapping("/loginFailure")
-	public ModelAndView failure() {
+	public ModelAndView failure(@RequestParam(required = false) final boolean banned) {
 		ModelAndView result;
 
-		result = new ModelAndView("redirect:login.do?showError=true");
+		result = new ModelAndView("redirect:login.do?showError=true&banned=" + banned);
 
 		return result;
 	}

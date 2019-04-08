@@ -1,26 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<!-- 
- * PopulateDatabase.xml
- *
- * Copyright (C) 2019 Universidad de Sevilla
- * 
- * The use of this project is hereby constrained to the conditions of the 
- * TDG Licence, a copy of which you may download from 
- * http://www.tdg-seville.info/License.html
- -->
+<!-- * PopulateDatabase.xml * * Copyright (C) 2019 Universidad de Sevilla 
+	* * The use of this project is hereby constrained to the conditions of the 
+	* TDG Licence, a copy of which you may download from * http://www.tdg-seville.info/License.html -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 	">
-	
+
 	<!-- User accounts -->
 
 	<bean id="userAccount1" class="security.UserAccount">
 		<property name="username" value="admin" />
 		<property name="password" value="21232f297a57a5a743894a0e4a801fc3" />
+		<property name="statusAccount" value="true" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
@@ -29,34 +24,382 @@
 			</list>
 		</property>
 	</bean>
-
 	<bean id="userAccount2" class="security.UserAccount">
-		<property name="username" value="customer" />
-		<property name="password" value="91ec1f9324753048c0096d036a694f86" />
-		<property name="authorities">
-			<list>
-				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
-				</bean>
-			</list>
-		</property>
-	</bean>
-
-	<bean id="userAccount3" class="security.UserAccount">
-		<property name="username" value="super" />
-		<property name="password" value="1b3231655cebb7a1f783eddf27d254ca" />
+		<property name="username" value="system" />
+		<property name="password" value="54b53072540eeeb8f8e9343e71f28176" />
+		<property name="statusAccount" value="true" />
 		<property name="authorities">
 			<list>
 				<bean class="security.Authority">
 					<property name="authority" value="ADMIN" />
 				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="userAccount3" class="security.UserAccount">
+		<property name="username" value="deletedUser" />
+		<property name="password" value="54b53072540eeeb8f8e9343e71f28176" />
+		<property name="statusAccount" value="true" />
+		<property name="authorities">
+			<list>
 				<bean class="security.Authority">
-					<property name="authority" value="CUSTOMER" />
+					<property name="authority" value="ADMIN" />
 				</bean>
 			</list>
 		</property>
 	</bean>
-	
-	<!-- Other domain beans come here -->	
-	
+	<bean id="userAccount4" class="security.UserAccount">
+		<property name="username" value="company1" />
+		<property name="password" value="df655f976f7c9d3263815bd981225cd9" />
+		<property name="statusAccount" value="true" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="userAccount5" class="security.UserAccount">
+		<property name="username" value="company2" />
+		<property name="password" value="d196a28097115067fefd73d25b0c0be8" />
+		<property name="statusAccount" value="true" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="userAccount6" class="security.UserAccount">
+		<property name="username" value="company3" />
+		<property name="password" value="e828ae3339b8d80b3902c1564578804e" />
+		<property name="statusAccount" value="true" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="userAccount7" class="security.UserAccount">
+		<property name="username" value="company4" />
+		<property name="password" value="856dfd9045541fa727ef6ad392835eb0" />
+		<property name="statusAccount" value="true" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="userAccount8" class="security.UserAccount">
+		<property name="username" value="company5" />
+		<property name="password" value="efa5a30f11d85b93518ba6cc3f229b14" />
+		<property name="statusAccount" value="true" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="COMPANY" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="userAccount9" class="security.UserAccount">
+		<property name="username" value="hacker1" />
+		<property name="password" value="2ba2a8ac968a7a2b0a7baa7f2fef18d2" />
+		<property name="statusAccount" value="true" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HACKER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="userAccount10" class="security.UserAccount">
+		<property name="username" value="hacker2" />
+		<property name="password" value="91af68b69a50a98dbc0800942540342c" />
+		<property name="statusAccount" value="true" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HACKER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="userAccount11" class="security.UserAccount">
+		<property name="username" value="hacker3" />
+		<property name="password" value="c6ae6edca1ad45f42e619ec91a32b636" />
+		<property name="statusAccount" value="true" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HACKER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="userAccount12" class="security.UserAccount">
+		<property name="username" value="hacker4" />
+		<property name="password" value="a0ba178a7585a3b3575613351aa76ef7" />
+		<property name="statusAccount" value="true" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HACKER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+	<bean id="userAccount13" class="security.UserAccount">
+		<property name="username" value="hacker5" />
+		<property name="password" value="c788cf2e81a407a2d33ee178ed79de3e" />
+		<property name="statusAccount" value="true" />
+		<property name="authorities">
+			<list>
+				<bean class="security.Authority">
+					<property name="authority" value="HACKER" />
+				</bean>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Administrator -->
+	<bean id="administrator1" class="domain.Administrator">
+		<property name="name" value="Rubén" />
+		<property name="surnames" value="Bueno Menéndez" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="photo" value="http://oi68.tinypic.com/oh4r9j.jpg" />
+		<property name="email" value="rubbuemen@acmehackerrank.com" />
+		<property name="phoneNumber" value="662839501" />
+		<property name="address" value="41005 Sevilla" />
+		<property name="userAccount" ref="userAccount1" />
+		<property name="messages">
+			<list>
+				<ref bean="message1" />
+				<ref bean="message2" />
+				<ref bean="message3" />
+				<ref bean="message4" />
+			</list>
+		</property>
+	</bean>
+	<bean id="administrator2" class="domain.Administrator">
+		<property name="name" value="System" />
+		<property name="surnames" value="Administrator" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="email" value="&lt;noreply@acmehackerrank.com&gt;" />
+		<property name="userAccount" ref="userAccount2" />
+	</bean>
+	<bean id="administrator3" class="domain.Administrator">
+		<property name="name" value="User deleted" />
+		<property name="surnames" value="---" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="email" value="&lt;noreply@acmehackerrank.com&gt;" />
+		<property name="userAccount" ref="userAccount3" />
+	</bean>
+
+	<!-- Company -->
+	<bean id="company1" class="domain.Company">
+		<property name="name" value="Héctor" />
+		<property name="surnames" value="Molina Jimenez" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard2" />
+		<property name="email" value="apple@acmehackerrank.com" />
+		<property name="phoneNumber" value="694039572" />
+		<property name="address" value="41005 Sevilla" />
+		<property name="commercialName" value="Apple" />
+		<property name="userAccount" ref="userAccount4" />
+		<property name="messages">
+			<list>
+				<ref bean="message5" />
+			</list>
+		</property>
+	</bean>
+	<bean id="company2" class="domain.Company">
+		<property name="name" value="Santiago" />
+		<property name="surnames" value="Martinez Montero" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard3" />
+		<property name="email" value="microsoft@acmehackerrank.com" />
+		<property name="phoneNumber" value="698369572" />
+		<property name="address" value="41005 Sevilla" />
+		<property name="commercialName" value="Microsoft" />
+		<property name="userAccount" ref="userAccount5" />
+		<property name="messages">
+			<list>
+				<ref bean="message6" />
+			</list>
+		</property>
+	</bean>
+	<bean id="company3" class="domain.Company">
+		<property name="name" value="Rayan" />
+		<property name="surnames" value="Riera Marin" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard4" />
+		<property name="email" value="ss@acmehackerrank.com" />
+		<property name="phoneNumber" value="696379442" />
+		<property name="address" value="41005 Sevilla" />
+		<property name="commercialName" value="SS" />
+		<property name="userAccount" ref="userAccount6" />
+	</bean>
+	<bean id="company4" class="domain.Company">
+		<property name="name" value="Alberto" />
+		<property name="surnames" value="Rodriguez Calvo" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="email" value="amazon@acmehackerrank.com" />
+		<property name="phoneNumber" value="653734711" />
+		<property name="address" value="41005 Sevilla" />
+		<property name="commercialName" value="Amazon" />
+		<property name="userAccount" ref="userAccount7" />
+	</bean>
+	<bean id="company5" class="domain.Company">
+		<property name="name" value="Antonio" />
+		<property name="surnames" value="Garrido Gallardo" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard2" />
+		<property name="email" value="ibm@acmehackerrank.com" />
+		<property name="phoneNumber" value="663094368" />
+		<property name="address" value="41005 Sevilla" />
+		<property name="commercialName" value="IBM" />
+		<property name="userAccount" ref="userAccount8" />
+	</bean>
+
+	<!-- CreditCard -->
+	<bean id="creditCard1" class="domain.CreditCard">
+		<property name="holder" value="Rubén Bueno Menéndez" />
+		<property name="make" value="VISA" />
+		<property name="number" value="4539888159789783" />
+		<property name="expirationMonth" value="9" />
+		<property name="expirationYear" value="24" />
+		<property name="cvv" value="909" />
+	</bean>
+	<bean id="creditCard2" class="domain.CreditCard">
+		<property name="holder" value="Mónica Amate Garrido" />
+		<property name="make" value="MCARD" />
+		<property name="number" value="4024007101185063" />
+		<property name="expirationMonth" value="2" />
+		<property name="expirationYear" value="21" />
+		<property name="cvv" value="482" />
+	</bean>
+	<bean id="creditCard3" class="domain.CreditCard">
+		<property name="holder" value="José Fernandez Gamez" />
+		<property name="make" value="FLY" />
+		<property name="number" value="5237382715859548" />
+		<property name="expirationMonth" value="12" />
+		<property name="expirationYear" value="23" />
+		<property name="cvv" value="724" />
+	</bean>
+	<bean id="creditCard4" class="domain.CreditCard">
+		<property name="holder" value="Antonio Gamez Pro" />
+		<property name="make" value="FLY" />
+		<property name="number" value="4485314248483647" />
+		<property name="expirationMonth" value="5" />
+		<property name="expirationYear" value="24" />
+		<property name="cvv" value="236" />
+	</bean>
+
+	<!-- Message -->
+	<bean id="message1" class="domain.Message">
+		<property name="moment" value="2019/01/10 11:43" />
+		<property name="subject" value="Hello beautiful life" />
+		<property name="body" value="How are you? You are amazing horrible" />
+		<property name="tags">
+			<list>
+				<value>READ</value>
+			</list>
+		</property>
+		<property name="flagSpam" value="false" />
+		<property name="sender" ref="company1" />
+		<property name="recipients">
+			<list>
+				<ref bean="administrator1" />
+			</list>
+		</property>
+	</bean>
+	<bean id="message2" class="domain.Message">
+		<property name="moment" value="2019/01/24 23:30" />
+		<property name="subject" value="Problem beautiful" />
+		<property name="body"
+			value="I have a problem with the web. This is horrible, a disaster, horrible horrible horrible" />
+		<property name="tags">
+			<list>
+				<value>DELETED</value>
+			</list>
+		</property>
+		<property name="flagSpam" value="false" />
+		<property name="sender" ref="company1" />
+		<property name="recipients">
+			<list>
+				<ref bean="administrator1" />
+			</list>
+		</property>
+	</bean>
+	<bean id="message3" class="domain.Message">
+		<property name="moment" value="2019/02/10 16:38" />
+		<property name="subject" value="Important average" />
+		<property name="body"
+			value="This is a important message sex. Good sex and fantastic satisfaction. Not bad" />
+		<property name="tags">
+			<list>
+				<value>READ</value>
+				<value>RANDOM</value>
+			</list>
+		</property>
+		<property name="flagSpam" value="false" />
+		<property name="sender" ref="company1" />
+		<property name="recipients">
+			<list>
+				<ref bean="administrator1" />
+			</list>
+		</property>
+	</bean>
+	<bean id="message4" class="domain.Message">
+		<property name="moment" value="2019/01/22 14:25" />
+		<property name="subject" value="ITS SPAM TIME SEXO SEXO SEXO" />
+		<property name="body"
+			value="sex viagra palabra random sex viagra one million Nigeria. Horrible but fantastic and amazing disaster. Not Bad." />
+		<property name="flagSpam" value="false" />
+		<property name="sender" ref="company2" />
+		<property name="recipients">
+			<list>
+				<ref bean="administrator1" />
+			</list>
+		</property>
+	</bean>
+	<bean id="message5" class="domain.Message">
+		<property name="moment" value="2019/01/22 14:25" />
+		<property name="subject" value="ITS SPAM TIME SEXO SEXO SEXO" />
+		<property name="body" value="Horrible but fantastic. Not Bad." />
+		<property name="flagSpam" value="false" />
+		<property name="sender" ref="administrator1" />
+		<property name="recipients">
+			<list>
+				<ref bean="company1" />
+			</list>
+		</property>
+	</bean>
+	<bean id="message6" class="domain.Message">
+		<property name="moment" value="2019/01/22 14:25" />
+		<property name="subject" value="ITS POSITIVE WORDS good good good" />
+		<property name="body"
+			value="good fantastic excellent great amazing terrific beautiful" />
+		<property name="flagSpam" value="false" />
+		<property name="sender" ref="administrator1" />
+		<property name="recipients">
+			<list>
+				<ref bean="company2" />
+			</list>
+		</property>
+	</bean>
+
 </beans>

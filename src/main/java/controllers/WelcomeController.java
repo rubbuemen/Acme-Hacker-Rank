@@ -13,6 +13,9 @@ package controllers;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,10 +34,16 @@ public class WelcomeController extends AbstractController {
 	// Index ------------------------------------------------------------------		
 
 	@RequestMapping(value = "/index")
-	public ModelAndView index(@RequestParam(required = false, defaultValue = "John Doe") final String name) {
+	public ModelAndView index(@RequestParam(required = false) final String message) {
 		ModelAndView result;
 		SimpleDateFormat formatter;
+		Authentication authentication;
+		String name = "";
 		String moment;
+
+		authentication = SecurityContextHolder.getContext().getAuthentication();
+		if (!(authentication instanceof AnonymousAuthenticationToken))
+			name = authentication.getName();
 
 		formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 		moment = formatter.format(new Date());
@@ -42,6 +51,7 @@ public class WelcomeController extends AbstractController {
 		result = new ModelAndView("welcome/index");
 		result.addObject("name", name);
 		result.addObject("moment", moment);
+		result.addObject("message", message);
 
 		return result;
 	}

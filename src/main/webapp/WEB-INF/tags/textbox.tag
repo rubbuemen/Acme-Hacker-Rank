@@ -26,9 +26,19 @@
 <%@ attribute name="code" required="true" %>
 
 <%@ attribute name="readonly" required="false" %>
+<%@ attribute name="placeholder" required="false" %>
+<%@ attribute name="type" required="false" %>
+<%@ attribute name="min" required="false" %>
+<%@ attribute name="max" required="false" %>
+<%@ attribute name="value" required="false" %>
+<%@ attribute name="step" required="false" %>
 
 <jstl:if test="${readonly == null}">
 	<jstl:set var="readonly" value="false" />
+</jstl:if>
+
+<jstl:if test="${type == null}">
+	<jstl:set var="type" value="text" />
 </jstl:if>
 
 <%-- Definition --%>
@@ -37,6 +47,6 @@
 	<form:label path="${path}">
 		<spring:message code="${code}" />
 	</form:label>	
-	<form:input path="${path}" readonly="${readonly}" />	
+	<form:input path="${path}" readonly="${readonly}" placeholder="${placeholder}" type="${type}" min="${min}" max="${max}" value ="${value}" step="${step}" />	
 	<form:errors path="${path}" cssClass="error" />
 </div>	

@@ -223,6 +223,24 @@
 				<ref bean="message5" />
 			</list>
 		</property>
+		<property name="positions">
+			<list>
+				<ref bean="position1" />
+				<ref bean="position2" />
+				<ref bean="position3" />
+			</list>
+		</property>
+		<property name="problems">
+			<list>
+				<ref bean="problem1" />
+				<ref bean="problem2" />
+				<ref bean="problem3" />
+				<ref bean="problem4" />
+				<ref bean="problem5" />
+				<ref bean="problem6" />
+				<ref bean="problem7" />
+			</list>
+		</property>
 	</bean>
 	<bean id="company2" class="domain.Company">
 		<property name="name" value="Santiago" />
@@ -239,6 +257,18 @@
 				<ref bean="message6" />
 			</list>
 		</property>
+		<property name="positions">
+			<list>
+				<ref bean="position4" />
+				<ref bean="position5" />
+			</list>
+		</property>
+		<property name="problems">
+			<list>
+				<ref bean="problem10" />
+				<ref bean="problem11" />
+			</list>
+		</property>
 	</bean>
 	<bean id="company3" class="domain.Company">
 		<property name="name" value="Rayan" />
@@ -250,6 +280,11 @@
 		<property name="address" value="41005 Sevilla" />
 		<property name="commercialName" value="SS" />
 		<property name="userAccount" ref="userAccount6" />
+		<property name="positions">
+			<list>
+				<ref bean="position6" />
+			</list>
+		</property>
 	</bean>
 	<bean id="company4" class="domain.Company">
 		<property name="name" value="Alberto" />
@@ -261,6 +296,12 @@
 		<property name="address" value="41005 Sevilla" />
 		<property name="commercialName" value="Amazon" />
 		<property name="userAccount" ref="userAccount7" />
+		<property name="problems">
+			<list>
+				<ref bean="problem8" />
+				<ref bean="problem9" />
+			</list>
+		</property>
 	</bean>
 	<bean id="company5" class="domain.Company">
 		<property name="name" value="Antonio" />
@@ -272,6 +313,82 @@
 		<property name="address" value="41005 Sevilla" />
 		<property name="commercialName" value="IBM" />
 		<property name="userAccount" ref="userAccount8" />
+	</bean>
+
+	<!-- Hacker -->
+	<bean id="hacker1" class="domain.Hacker">
+		<property name="name" value="Alberto" />
+		<property name="surnames" value="Blanco Fuentes" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="email" value="albfue@acmehackerrank.com" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="address" value="41005 Sevilla" />
+		<property name="userAccount" ref="userAccount9" />
+		<property name="finder" ref="finder1" />
+		<property name="applications">
+			<list>
+				<ref bean="application1" />
+				<ref bean="application2" />
+				<ref bean="application3" />
+				<ref bean="application4" />
+			</list>
+		</property>
+	</bean>
+	<bean id="hacker2" class="domain.Hacker">
+		<property name="name" value="Santiago" />
+		<property name="surnames" value="Castro Cortes" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard3" />
+		<property name="email" value="santcascor@acmehackerrank.com" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="address" value="41005 Sevilla" />
+		<property name="userAccount" ref="userAccount10" />
+		<property name="finder" ref="finder2" />
+		<property name="applications">
+			<list>
+				<ref bean="application5" />
+				<ref bean="application6" />
+			</list>
+		</property>
+	</bean>
+	<bean id="hacker3" class="domain.Hacker">
+		<property name="name" value="Jaime" />
+		<property name="surnames" value="Hernandez Mendez" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard1" />
+		<property name="email" value="jaihermen@acmehackerrank.com" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="address" value="41005 Sevilla" />
+		<property name="userAccount" ref="userAccount11" />
+		<property name="finder" ref="finder3" />
+		<property name="applications">
+			<list>
+				<ref bean="application7" />
+			</list>
+		</property>
+	</bean>
+	<bean id="hacker4" class="domain.Hacker">
+		<property name="name" value="Leo" />
+		<property name="surnames" value="Perez Ferrer" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard4" />
+		<property name="email" value="leoperfer@acmehackerrank.com" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="address" value="41005 Sevilla" />
+		<property name="userAccount" ref="userAccount12" />
+		<property name="finder" ref="finder4" />
+	</bean>
+	<bean id="hacker5" class="domain.Hacker">
+		<property name="name" value="David" />
+		<property name="surnames" value="Garrido Cabrera" />
+		<property name="VATNumber" value="TU463" />
+		<property name="creditCard" ref="creditCard3" />
+		<property name="email" value="davidgac@acmehackerrank.com" />
+		<property name="phoneNumber" value="652682037" />
+		<property name="address" value="41005 Sevilla" />
+		<property name="userAccount" ref="userAccount13" />
+		<property name="finder" ref="finder5" />
 	</bean>
 
 	<!-- CreditCard -->
@@ -401,5 +518,727 @@
 			</list>
 		</property>
 	</bean>
+
+	<!-- Finder -->
+	<bean id="finder1" class="domain.Finder">
+		<property name="keyWord" value="Programador" />
+		<property name="deadline" value="2019/10/22" />
+		<property name="minSalary" value="235.0" />
+		<property name="maxDeadline" value="2019/11/22" />
+		<property name="searchMoment" value="2019/01/17 18:24" />
+		<property name="positions">
+			<list>
+				<ref bean="position1" />
+			</list>
+		</property>
+	</bean>
+	<bean id="finder2" class="domain.Finder">
+		<property name="keyWord" value="Programador" />
+		<property name="minSalary" value="235.0" />
+		<property name="maxDeadline" value="2019/11/22" />
+		<property name="searchMoment" value="2019/01/23 19:17" />
+		<property name="positions">
+			<list>
+				<ref bean="position1" />
+				<ref bean="position4" />
+			</list>
+		</property>
+	</bean>
+	<bean id="finder3" class="domain.Finder">
+		<property name="keyWord" value="Analista" />
+		<property name="searchMoment" value="2019/02/14 15:12" />
+	</bean>
+	<bean id="finder4" class="domain.Finder">
+		<property name="maxDeadline" value="2023/06/13" />
+		<property name="searchMoment" value="2019/03/14 13:36" />
+		<property name="positions">
+			<list>
+				<ref bean="position1" />
+				<ref bean="position4" />
+			</list>
+		</property>
+	</bean>
+	<bean id="finder5" class="domain.Finder">
+	</bean>
+
+	<!-- Curricula -->
+	<bean id="curricula1" class="domain.Curricula">
+		<property name="isCopy" value="false" />
+		<property name="personalData" ref="personalData1" />
+		<property name="positionDatas">
+			<list>
+				<ref bean="positionData1" />
+				<ref bean="positionData2" />
+			</list>
+		</property>
+		<property name="educationDatas">
+			<list>
+				<ref bean="educationData1" />
+				<ref bean="educationData2" />
+			</list>
+		</property>
+		<property name="miscellaneousDatas">
+			<list>
+				<ref bean="miscellaneousData1" />
+				<ref bean="miscellaneousData2" />
+			</list>
+		</property>
+		<property name="hacker" ref="hacker1" />
+	</bean>
+	<bean id="curricula2" class="domain.Curricula">
+		<property name="isCopy" value="false" />
+		<property name="personalData" ref="personalData2" />
+		<property name="hacker" ref="hacker1" />
+	</bean>
+	<bean id="curricula3" class="domain.Curricula">
+		<property name="isCopy" value="false" />
+		<property name="personalData" ref="personalData3" />
+		<property name="hacker" ref="hacker2" />
+	</bean>
+	<bean id="curricula4" class="domain.Curricula">
+		<property name="isCopy" value="false" />
+		<property name="personalData" ref="personalData4" />
+		<property name="hacker" ref="hacker3" />
+	</bean>
+	<bean id="curricula5" class="domain.Curricula">
+		<property name="isCopy" value="true" />
+		<property name="personalData" ref="personalData5" />
+		<property name="positionDatas">
+			<list>
+				<ref bean="positionData3" />
+				<ref bean="positionData4" />
+			</list>
+		</property>
+		<property name="educationDatas">
+			<list>
+				<ref bean="educationData3" />
+				<ref bean="educationData4" />
+			</list>
+		</property>
+		<property name="miscellaneousDatas">
+			<list>
+				<ref bean="miscellaneousData3" />
+				<ref bean="miscellaneousData4" />
+			</list>
+		</property>
+		<property name="hacker" ref="hacker1" />
+	</bean>
+	<bean id="curricula6" class="domain.Curricula">
+		<property name="isCopy" value="true" />
+		<property name="personalData" ref="personalData6" />
+		<property name="hacker" ref="hacker1" />
+	</bean>
+	<bean id="curricula7" class="domain.Curricula">
+		<property name="isCopy" value="true" />
+		<property name="personalData" ref="personalData7" />
+		<property name="hacker" ref="hacker1" />
+	</bean>
+	<bean id="curricula8" class="domain.Curricula">
+		<property name="isCopy" value="true" />
+		<property name="personalData" ref="personalData8" />
+		<property name="hacker" ref="hacker1" />
+	</bean>
+	<bean id="curricula9" class="domain.Curricula">
+		<property name="isCopy" value="true" />
+		<property name="personalData" ref="personalData9" />
+		<property name="hacker" ref="hacker2" />
+	</bean>
+	<bean id="curricula10" class="domain.Curricula">
+		<property name="isCopy" value="true" />
+		<property name="personalData" ref="personalData10" />
+		<property name="hacker" ref="hacker2" />
+	</bean>
+	<bean id="curricula11" class="domain.Curricula">
+		<property name="isCopy" value="true" />
+		<property name="personalData" ref="personalData11" />
+		<property name="hacker" ref="hacker3" />
+	</bean>
+
+	<!-- PersonalData -->
+	<bean id="personalData1" class="domain.PersonalData">
+		<property name="name" value="Alberto Blanco Fuentes (Curriculum 1)" />
+		<property name="statement" value="Programador" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="gitHubProfile" value="https://www.github.com/albertoBlanco" />
+		<property name="linkedInProfile" value="https://www.linkedin.com/albertoBlanco" />
+	</bean>
+	<bean id="personalData2" class="domain.PersonalData">
+		<property name="name" value="Alberto Blanco Fuentes (Curriculum 2)" />
+		<property name="statement" value="Programador" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="gitHubProfile" value="https://www.github.com/albertoBlanco" />
+		<property name="linkedInProfile" value="https://www.linkedin.com/albertoBlanco" />
+	</bean>
+	<bean id="personalData3" class="domain.PersonalData">
+		<property name="name" value="Santiago Castro Cortes (Curriculum 1)" />
+		<property name="statement" value="Analista" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="gitHubProfile" value="https://www.github.com/santiagoCastro" />
+		<property name="linkedInProfile" value="https://www.linkedin.com/santiagoCastro" />
+	</bean>
+	<bean id="personalData4" class="domain.PersonalData">
+		<property name="name" value="Jaime Hernandez Mendez (Curriculum 1)" />
+		<property name="statement" value="Analista" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="gitHubProfile" value="https://www.github.com/jaimeHernandez" />
+		<property name="linkedInProfile" value="https://www.linkedin.com/jaimeHenandez" />
+	</bean>
+	<bean id="personalData5" class="domain.PersonalData">
+		<property name="name" value="Alberto Blanco Fuentes (Curriculum 1)" />
+		<property name="statement" value="Programador" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="gitHubProfile" value="https://www.github.com/albertoBlanco" />
+		<property name="linkedInProfile" value="https://www.linkedin.com/albertoBlanco" />
+	</bean>
+	<bean id="personalData6" class="domain.PersonalData">
+		<property name="name" value="Alberto Blanco Fuentes (Curriculum 2)" />
+		<property name="statement" value="Programador" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="gitHubProfile" value="https://www.github.com/albertoBlanco" />
+		<property name="linkedInProfile" value="https://www.linkedin.com/albertoBlanco" />
+	</bean>
+	<bean id="personalData7" class="domain.PersonalData">
+		<property name="name" value="Alberto Blanco Fuentes (Curriculum 2)" />
+		<property name="statement" value="Programador" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="gitHubProfile" value="https://www.github.com/albertoBlanco" />
+		<property name="linkedInProfile" value="https://www.linkedin.com/albertoBlanco" />
+	</bean>
+	<bean id="personalData8" class="domain.PersonalData">
+		<property name="name" value="Alberto Blanco Fuentes (Curriculum 2)" />
+		<property name="statement" value="Programador" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="gitHubProfile" value="https://www.github.com/albertoBlanco" />
+		<property name="linkedInProfile" value="https://www.linkedin.com/albertoBlanco" />
+	</bean>
+	<bean id="personalData9" class="domain.PersonalData">
+		<property name="name" value="Santiago Castro Cortes (Curriculum 1)" />
+		<property name="statement" value="Analista" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="gitHubProfile" value="https://www.github.com/santiagoCastro" />
+		<property name="linkedInProfile" value="https://www.linkedin.com/santiagoCastro" />
+	</bean>
+	<bean id="personalData10" class="domain.PersonalData">
+		<property name="name" value="Santiago Castro Cortes (Curriculum 1)" />
+		<property name="statement" value="Analista" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="gitHubProfile" value="https://www.github.com/santiagoCastro" />
+		<property name="linkedInProfile" value="https://www.linkedin.com/santiagoCastro" />
+	</bean>
+	<bean id="personalData11" class="domain.PersonalData">
+		<property name="name" value="Jaime Hernandez Mendez (Curriculum 1)" />
+		<property name="statement" value="Analista" />
+		<property name="phoneNumber" value="656269501" />
+		<property name="gitHubProfile" value="https://www.github.com/jaimeHernandez" />
+		<property name="linkedInProfile" value="https://www.linkedin.com/jaimeHenandez" />
+	</bean>
+
+	<!-- PositionData -->
+	<bean id="positionData1" class="domain.PositionData">
+		<property name="title" value="Programador java" />
+		<property name="description" value="Programador java en spring" />
+		<property name="startDate" value="2018/03/16" />
+		<property name="endDate" value="2018/07/14" />
+	</bean>
+	<bean id="positionData2" class="domain.PositionData">
+		<property name="title" value="Programador web" />
+		<property name="description" value="Programador web de PHP" />
+		<property name="startDate" value="2019/01/16" />
+	</bean>
+	<bean id="positionData3" class="domain.PositionData">
+		<property name="title" value="Programador java" />
+		<property name="description" value="Programador java en spring" />
+		<property name="startDate" value="2018/03/16" />
+		<property name="endDate" value="2018/07/14" />
+	</bean>
+	<bean id="positionData4" class="domain.PositionData">
+		<property name="title" value="Programador web" />
+		<property name="description" value="Programador web de PHP" />
+		<property name="startDate" value="2019/01/16" />
+	</bean>
+
+	<!-- EducationData -->
+	<bean id="educationData1" class="domain.EducationData">
+		<property name="degree" value="Ingeniería del software" />
+		<property name="institution" value="ETSII" />
+		<property name="mark" value="8.23" />
+		<property name="startDate" value="2014/01/23" />
+		<property name="endDate" value="2015/06/16" />
+	</bean>
+	<bean id="educationData2" class="domain.EducationData">
+		<property name="degree" value="Matemáticas" />
+		<property name="institution" value="Facultad de matemáticas" />
+		<property name="mark" value="10.0" />
+		<property name="startDate" value="2014/01/23" />
+		<property name="endDate" value="2015/06/16" />
+	</bean>
+	<bean id="educationData3" class="domain.EducationData">
+		<property name="degree" value="Ingeniería del software" />
+		<property name="institution" value="ETSII" />
+		<property name="mark" value="8.23" />
+		<property name="startDate" value="2014/01/23" />
+		<property name="endDate" value="2015/06/16" />
+	</bean>
+	<bean id="educationData4" class="domain.EducationData">
+		<property name="degree" value="Matemáticas" />
+		<property name="institution" value="Facultad de matemáticas" />
+		<property name="mark" value="10.0" />
+		<property name="startDate" value="2014/01/23" />
+		<property name="endDate" value="2015/06/16" />
+	</bean>
+
+	<!-- MiscellaneousData -->
+	<bean id="miscellaneousData1" class="domain.MiscellaneousData">
+		<property name="text" value="Sample text" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+				<value>http://www.attachment2.com</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="miscellaneousData2" class="domain.MiscellaneousData">
+		<property name="text" value="Sample text" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+				<value>http://www.attachment2.com</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="miscellaneousData3" class="domain.MiscellaneousData">
+		<property name="text" value="Sample text" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+				<value>http://www.attachment2.com</value>
+			</list>
+		</property>
+	</bean>
+	<bean id="miscellaneousData4" class="domain.MiscellaneousData">
+		<property name="text" value="Sample text" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+				<value>http://www.attachment2.com</value>
+			</list>
+		</property>
+	</bean>
+
+
+	<!-- Position -->
+	<bean id="position1" class="domain.Position">
+		<property name="ticker" value="APPL-1234" />
+		<property name="title" value="Programador Senior" />
+		<property name="description" value="Programador Java para hacer DP" />
+		<property name="deadline" value="2019/10/22" />
+		<property name="skills">
+			<list>
+				<value>Desarrollo de ideas y capacidad para innovar</value>
+				<value>Productividad y capacidad para trabajar con rigor</value>
+			</list>
+		</property>
+		<property name="technologies">
+			<list>
+				<value>Maven</value>
+				<value>Java</value>
+				<value>Spring</value>
+			</list>
+		</property>
+		<property name="salary" value="400.42" />
+		<property name="profile" value="Entusiasta" />
+		<property name="isFinalMode" value="true" />
+		<property name="isCancelled" value="false" />
+		<property name="problems">
+			<list>
+				<ref bean="problem1" />
+				<ref bean="problem2" />
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application1" />
+				<ref bean="application2" />
+				<ref bean="application3" />
+				<ref bean="application7" />
+			</list>
+		</property>
+	</bean>
+	<bean id="position2" class="domain.Position">
+		<property name="ticker" value="APPL-7387" />
+		<property name="title" value="Analista" />
+		<property name="description" value="Analista para un proyecto" />
+		<property name="deadline" value="2019/11/25" />
+		<property name="skills">
+			<list>
+				<value>Capacidad analítica, pensamiento crítico</value>
+			</list>
+		</property>
+		<property name="technologies">
+			<list>
+				<value>Google Analytics</value>
+			</list>
+		</property>
+		<property name="salary" value="200.74" />
+		<property name="profile" value="Perfeccionista" />
+		<property name="isFinalMode" value="false" />
+		<property name="isCancelled" value="false" />
+		<property name="problems">
+			<list>
+				<ref bean="problem3" />
+				<ref bean="problem4" />
+			</list>
+		</property>
+	</bean>
+	<bean id="position3" class="domain.Position">
+		<property name="ticker" value="APPL-0835" />
+		<property name="title" value="Programador Junior" />
+		<property name="description" value="Programador PHP para una web" />
+		<property name="deadline" value="2020/03/22" />
+		<property name="skills">
+			<list>
+				<value>Trabajo en equipo</value>
+			</list>
+		</property>
+		<property name="technologies">
+			<list>
+				<value>Apache</value>
+				<value>PhPMyAdmin</value>
+			</list>
+		</property>
+		<property name="salary" value="142.62" />
+		<property name="profile" value="Trabajador" />
+		<property name="isFinalMode" value="true" />
+		<property name="isCancelled" value="true" />
+		<property name="problems">
+			<list>
+				<ref bean="problem5" />
+				<ref bean="problem6" />
+				<ref bean="problem7" />
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application4" />
+				<ref bean="application5" />
+			</list>
+		</property>
+	</bean>
+	<bean id="position4" class="domain.Position">
+		<property name="ticker" value="MICR-5235" />
+		<property name="title" value="Programador Senior" />
+		<property name="description" value="Programador Java para una aplicación" />
+		<property name="deadline" value="2019/12/11" />
+		<property name="skills">
+			<list>
+				<value>Desarrollo de ideas y capacidad para innovar</value>
+				<value>Productividad y capacidad para trabajar con rigor</value>
+			</list>
+		</property>
+		<property name="technologies">
+			<list>
+				<value>Maven</value>
+				<value>Java</value>
+				<value>Spring</value>
+			</list>
+		</property>
+		<property name="salary" value="650.32" />
+		<property name="profile" value="Entusiasta" />
+		<property name="isFinalMode" value="true" />
+		<property name="isCancelled" value="false" />
+		<property name="problems">
+			<list>
+				<ref bean="problem10" />
+				<ref bean="problem11" />
+			</list>
+		</property>
+		<property name="applications">
+			<list>
+				<ref bean="application6" />
+			</list>
+		</property>
+	</bean>
+	<bean id="position5" class="domain.Position">
+		<property name="ticker" value="MICR-4223" />
+		<property name="title" value="Analista" />
+		<property name="description" value="Analista de estadísticas" />
+		<property name="deadline" value="2019/11/06" />
+		<property name="skills">
+			<list>
+				<value>Adaptación</value>
+				<value>Flexibilidad</value>
+			</list>
+		</property>
+		<property name="technologies">
+			<list>
+				<value>Google Analytics</value>
+			</list>
+		</property>
+		<property name="salary" value="800.38" />
+		<property name="profile" value="Muy trabajador" />
+		<property name="isFinalMode" value="false" />
+		<property name="isCancelled" value="false" />
+	</bean>
+	<bean id="position6" class="domain.Position">
+		<property name="ticker" value="SSXX-4211" />
+		<property name="title" value="Diseñador" />
+		<property name="description" value="Diseñador web" />
+		<property name="deadline" value="2019/12/17" />
+		<property name="skills">
+			<list>
+				<value>Capacidad de comunicación</value>
+			</list>
+		</property>
+		<property name="technologies">
+			<list>
+				<value>Adobe PhotoShop</value>
+				<value>Adobe Ilustrator</value>
+			</list>
+		</property>
+		<property name="salary" value="700.00" />
+		<property name="profile" value="Dibujante" />
+		<property name="isFinalMode" value="false" />
+		<property name="isCancelled" value="false" />
+	</bean>
+
+	<!-- Problem -->
+	<bean id="problem1" class="domain.Problem">
+		<property name="title" value="Error de DP" />
+		<property name="statement" value="A completar" />
+		<property name="hint" value="Al ejecutar una query da un error" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+				<value>http://www.attachment2.com</value>
+			</list>
+		</property>
+		<property name="isFinalMode" value="true" />
+	</bean>
+	<bean id="problem2" class="domain.Problem">
+		<property name="title" value="Error de PSG" />
+		<property name="statement" value="Incompleto" />
+		<property name="hint" value="No funciona una funcionalidad de listar" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+			</list>
+		</property>
+		<property name="isFinalMode" value="true" />
+	</bean>
+	<bean id="problem3" class="domain.Problem">
+		<property name="title" value="Error ejecutando queries" />
+		<property name="statement" value="Desastre" />
+		<property name="hint" value="Está fallano al ejecutar cualquier query" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+				<value>http://www.attachment2.com</value>
+			</list>
+		</property>
+		<property name="isFinalMode" value="true" />
+	</bean>
+	<bean id="problem4" class="domain.Problem">
+		<property name="title" value="Error problem4" />
+		<property name="statement" value="Statement4" />
+		<property name="hint" value="Hint4" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+			</list>
+		</property>
+		<property name="isFinalMode" value="true" />
+	</bean>
+	<bean id="problem5" class="domain.Problem">
+		<property name="title" value="Error problem5" />
+		<property name="statement" value="Statement5" />
+		<property name="hint" value="Hint5" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+			</list>
+		</property>
+		<property name="isFinalMode" value="true" />
+	</bean>
+	<bean id="problem6" class="domain.Problem">
+		<property name="title" value="Error problem6" />
+		<property name="statement" value="Statement6" />
+		<property name="hint" value="Hint6" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+			</list>
+		</property>
+		<property name="isFinalMode" value="true" />
+	</bean>
+	<bean id="problem7" class="domain.Problem">
+		<property name="title" value="Error problem7" />
+		<property name="statement" value="Statement7" />
+		<property name="hint" value="Hint7" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+			</list>
+		</property>
+		<property name="isFinalMode" value="true" />
+	</bean>
+	<bean id="problem8" class="domain.Problem">
+		<property name="title" value="Error problem8" />
+		<property name="statement" value="Statement8" />
+		<property name="hint" value="Hint8" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+			</list>
+		</property>
+		<property name="isFinalMode" value="false" />
+	</bean>
+	<bean id="problem9" class="domain.Problem">
+		<property name="title" value="Error problem9" />
+		<property name="statement" value="Stat3ment9" />
+		<property name="hint" value="Hint9" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+			</list>
+		</property>
+		<property name="isFinalMode" value="false" />
+	</bean>
+	<bean id="problem10" class="domain.Problem">
+		<property name="title" value="Error problem10" />
+		<property name="statement" value="Stat3ment10" />
+		<property name="hint" value="Hint10" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+			</list>
+		</property>
+		<property name="isFinalMode" value="true" />
+	</bean>
+	<bean id="problem11" class="domain.Problem">
+		<property name="title" value="Error problem11" />
+		<property name="statement" value="Statement11" />
+		<property name="hint" value="Hint11" />
+		<property name="attachments">
+			<list>
+				<value>http://www.attachment1.com</value>
+			</list>
+		</property>
+		<property name="isFinalMode" value="true" />
+	</bean>
+
+	<!-- Application -->
+	<bean id="application1" class="domain.Application">
+		<property name="moment" value="2019/01/22 10:30" />
+		<property name="status" value="PENDING" />
+		<property name="problem" ref="problem1" />
+		<property name="curricula" ref="curricula5" />
+		<property name="position" ref="position1" />
+		<property name="hacker" ref="hacker1" />
+	</bean>
+	<bean id="application2" class="domain.Application">
+		<property name="moment" value="2019/02/12 23:30" />
+		<property name="status" value="PENDING" />
+		<property name="problem" ref="problem2" />
+		<property name="curricula" ref="curricula6" />
+		<property name="position" ref="position1" />
+		<property name="hacker" ref="hacker1" />
+	</bean>
+	<bean id="application3" class="domain.Application">
+		<property name="moment" value="2019/03/10 10:30" />
+		<property name="explications" value="Lo he resuelto gracias a mis habilidades" />
+		<property name="codeLink" value="https://dropbox.com/codigoResuelto" />
+		<property name="momentSubmit" value="2019/03/12 12:35" />
+		<property name="status" value="SUBMITTED" />
+		<property name="problem" ref="problem1" />
+		<property name="curricula" ref="curricula7" />
+		<property name="position" ref="position1" />
+		<property name="hacker" ref="hacker1" />
+	</bean>
+	<bean id="application4" class="domain.Application">
+		<property name="moment" value="2019/01/22 10:30" />
+		<property name="explications" value="Lo he resuelto gracias a mis habilidades" />
+		<property name="codeLink" value="https://dropbox.com/codigoResuelto" />
+		<property name="momentSubmit" value="2019/03/12 12:35" />
+		<property name="status" value="REJECTED" />
+		<property name="problem" ref="problem5" />
+		<property name="curricula" ref="curricula8" />
+		<property name="position" ref="position3" />
+		<property name="hacker" ref="hacker1" />
+	</bean>
+	<bean id="application5" class="domain.Application">
+		<property name="moment" value="2019/01/22 10:30" />
+		<property name="explications" value="Lo he resuelto gracias a mis habilidades" />
+		<property name="codeLink" value="https://dropbox.com/codigoResuelto" />
+		<property name="momentSubmit" value="2019/03/12 12:35" />
+		<property name="status" value="REJECTED" />
+		<property name="problem" ref="problem6" />
+		<property name="curricula" ref="curricula9" />
+		<property name="position" ref="position3" />
+		<property name="hacker" ref="hacker2" />
+	</bean>
+	<bean id="application6" class="domain.Application">
+		<property name="moment" value="2019/01/22 10:30" />
+		<property name="explications" value="Lo he resuelto gracias a mis habilidades" />
+		<property name="codeLink" value="https://dropbox.com/codigoResuelto" />
+		<property name="momentSubmit" value="2019/03/12 12:35" />
+		<property name="status" value="ACCEPTED" />
+		<property name="problem" ref="problem10" />
+		<property name="curricula" ref="curricula10" />
+		<property name="position" ref="position4" />
+		<property name="hacker" ref="hacker2" />
+	</bean>
+	<bean id="application7" class="domain.Application">
+		<property name="moment" value="2019/01/22 10:30" />
+		<property name="explications" value="Lo he resuelto gracias a mis habilidades" />
+		<property name="codeLink" value="https://dropbox.com/codigoResuelto" />
+		<property name="momentSubmit" value="2019/03/12 12:35" />
+		<property name="status" value="ACCEPTED" />
+		<property name="problem" ref="problem2" />
+		<property name="curricula" ref="curricula11" />
+		<property name="position" ref="position1" />
+		<property name="hacker" ref="hacker3" />
+	</bean>
+	
+	<!-- SocialProfile -->
+	<bean id="socialProfile1" class="domain.SocialProfile">
+		<property name="nick" value="ruben.buenomenendez" />
+		<property name="socialNetworkName" value="Facebook" />
+		<property name="profileLink" value="https://www.facebook.com/ruben.buenomenendez" />
+		<property name="actor" ref="administrator1" />
+	</bean>
+	<bean id="socialProfile2" class="domain.SocialProfile">
+		<property name="nick" value="rubén-bueno-menéndez-b153b9b7" />
+		<property name="socialNetworkName" value="Linkedin" />
+		<property name="profileLink"
+			value="https://www.linkedin.com/in/rub%C3%A9n-bueno-men%C3%A9ndez-b153b9b7/" />
+		<property name="actor" ref="administrator1" />
+	</bean>
+	
+	<!-- SystemConfiguration -->
+	<bean id="systemConfiguration1" class="domain.SystemConfiguration">
+		<property name="nameSystem" value="Acme Hacker Rank" />
+		<property name="bannerUrl" value="https://i.imgur.com/7b8lu4b.png" />
+		<property name="welcomeMessageEnglish"
+			value="Welcome to Acme hacker Rank! We're IT hacker's favourite job marketplace!" />
+		<property name="welcomeMessageSpanish"
+			value="“¡Bienvenidos a Acme Hacker Rank! ¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
+		<property name="phoneCountryCode" value="+34" />
+		<property name="periodFinder" value="1" />
+		<property name="maxResultsFinder" value="10" />
+		<property name="spamWords">
+			<list>
+				<value>sex</value>
+				<value>viagra</value>
+				<value>cialis</value>
+				<value>one million</value>
+				<value>you've been selected</value>
+				<value>Nigeria</value>
+				<value>sexo</value>
+				<value>un millón</value>
+				<value>ha sido seleccionado</value>
+			</list>
+		</property>
+	</bean>
+
 
 </beans>

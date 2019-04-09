@@ -2,6 +2,7 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,7 +12,12 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.CompanyRepository;
+import security.Authority;
+import security.UserAccount;
 import domain.Company;
+import domain.Position;
+import domain.Problem;
+import forms.CompanyForm;
 
 @Service
 @Transactional
@@ -21,15 +27,30 @@ public class CompanyService {
 	@Autowired
 	private CompanyRepository	companyRepository;
 
-
 	// Supporting services
+	@Autowired
+	private UserAccountService	userAccountService;
+
+	@Autowired
+	private ActorService		actorService;
+
 
 	// Simple CRUD methods
+	// R7.1
 	public Company create() {
-
 		Company result;
 
 		result = new Company();
+		final Collection<Position> positions = new HashSet<>();
+		final Collection<Problem> problems = new HashSet<>();
+		final UserAccount userAccount = this.userAccountService.create();
+		final Authority auth = new Authority();
+
+		auth.setAuthority(Authority.COMPANY);
+		userAccount.addAuthority(auth);
+		result.setPositions(positions);
+		result.setProblems(problems);
+		result.setUserAccount(userAccount);
 
 		return result;
 	}
@@ -53,15 +74,14 @@ public class CompanyService {
 		return result;
 	}
 
+	// R7.1, R8.2
 	public Company save(final Company company) {
 		Assert.notNull(company);
 
 		Company result;
 
-		if (company.getId() == 0)
-			result = this.companyRepository.save(company);
-		else
-			result = this.companyRepository.save(company);
+		result = (Company) this.actorService.save(company);
+		result = this.companyRepository.save(result);
 
 		return result;
 	}
@@ -82,16 +102,39 @@ public class CompanyService {
 	private Validator	validator;
 
 
-	public Company reconstruct(final Company company, final BindingResult binding) {
-		Company result;
+	public CompanyForm reconstruct(final CompanyForm companyForm, final BindingResult binding) {
+		CompanyForm result;
+		final Company company = companyForm.getActor();
 
-		if (company.getId() == 0)
-			result = company;
-		else {
-			result = this.companyRepository.findOne(company.getId());
-			Assert.notNull(result, "This entity does not exist");
-
+		if (company.getId() == 0) {
+			final Collection<Position> positions = new HashSet<>();
+			final Collection<Problem> problems = new HashSet<>();
+			final UserAccount userAccount = this.userAccountService.create();
+			final Authority auth = new Authority();
+			auth.setAuthority(Authority.COMPANY);
+			userAccount.addAuthority(auth);
+			userAccount.setUsername(companyForm.getActor().getUserAccount().getUsername());
+			userAccount.setPassword(companyForm.getActor().getUserAccount().getPassword());
+			company.setPositions(positions);
+			company.setProblems(problems);
+			company.setUserAccount(userAccount);
+			companyForm.setActor(company);
+		} else {
+			final Company res = this.companyRepository.findOne(company.getId());
+			Assert.notNull(res, "This entity does not exist");
+			res.setName(company.getName());
+			res.setSurnames(company.getSurnames());
+			res.setVATNumber(company.getVATNumber());
+			res.setCreditCard(company.getCreditCard());
+			res.setPhoto(company.getPhoto());
+			res.setEmail(company.getEmail());
+			res.setPhoneNumber(company.getPhoneNumber());
+			res.setAddress(company.getAddress());
+			res.setCommercialName(company.getCommercialName());
+			companyForm.setActor(res);
 		}
+
+		result = companyForm;
 
 		this.validator.validate(result, binding);
 

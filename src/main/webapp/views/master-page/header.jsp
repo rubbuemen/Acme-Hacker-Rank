@@ -22,12 +22,12 @@
 	<ul id="jMenu">
 		<!-- Do not forget the "fNiv" class for the first level links !! -->		
 		<security:authorize access="isAnonymous()">
-			<li><a class="fNiv" href="rol/accion.do"><spring:message code="master.page.brotherhoods" /></a></li>
+<%-- 			<li><a class="fNiv" href="rol/accion.do"><spring:message code="master.page.brotherhoods" /></a></li> --%>
 			<li><a class="fNiv"><spring:message code="master.page.register" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="actor/register-brotherhood.do"><spring:message code="master.page.register.brotherhood" /></a></li>
-					<li><a href="actor/register-member.do"><spring:message code="master.page.register.member" /></a></li>
+					<li><a href="actor/register-company.do"><spring:message code="master.page.register.company" /></a></li>
+					<li><a href="actor/register-hacker.do"><spring:message code="master.page.register.hacker" /></a></li>
 				</ul>
 			</li>
 			<li><a class="fNiv" href="security/login.do"><spring:message code="master.page.login" /></a></li>
@@ -35,10 +35,10 @@
 		
 		<security:authorize access="hasRole('COMPANY')">
 			<li>
-				<a class="fNiv"><spring:message code="master.page.brotherhood" /></a>
+				<a class="fNiv"><spring:message code="master.page.company" /></a>
 				<ul>
 					<li class="arrow"></li>
-					<li><a href="float/brotherhood/list.do"><spring:message code="master.page.floats" /></a></li>
+<%-- 					<li><a href="float/brotherhood/list.do"><spring:message code="master.page.floats" /></a></li> --%>
 				</ul>
 			</li>
 		</security:authorize>
@@ -50,7 +50,6 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="actor/administrator/register-administrator.do"><spring:message code="master.page.register.admin" /></a></li>
-					<li><a href="area/administrator/list.do"><spring:message code="master.page.areas" /></a></li>	
 					<li><a href="dashboard/administrator/show.do"><spring:message code="master.page.dashboard" /></a></li>	
 					<li><a href="systemConfiguration/administrator/show.do"><spring:message code="master.page.systemConfiguration" /></a></li>	
 					<li><a href="systemConfiguration/administrator/actorsList.do"><spring:message code="master.page.actorsList" /></a></li>
@@ -68,7 +67,13 @@
 				<ul>
 					<li class="arrow"></li>
 					<security:authorize access="hasRole('COMPANY')">
-						<li><a href="actor/brotherhood/edit.do"><spring:message code="master.page.edit.profile" /></a></li>
+						<li><a href="actor/company/edit.do"><spring:message code="master.page.edit.profile" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('HACKER')">
+						<li><a href="actor/hacker/edit.do"><spring:message code="master.page.edit.profile" /></a></li>
+					</security:authorize>
+					<security:authorize access="hasRole('ADMIN')">
+						<li><a href="actor/administrator/edit.do"><spring:message code="master.page.edit.profile" /></a></li>
 					</security:authorize>
 					<spring:message code="master.page.delete.account.confirm" var="confirm" />
 					<security:authorize access="!hasRole('ADMIN')">				

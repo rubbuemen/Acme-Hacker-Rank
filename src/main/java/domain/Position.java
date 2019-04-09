@@ -116,7 +116,7 @@ public class Position extends DomainEntity {
 
 	@NotNull
 	@Min(0)
-	@Digits(integer = 2, fraction = 2)
+	@Digits(integer = 6, fraction = 2)
 	public Double getSalary() {
 		return this.salary;
 	}
@@ -159,7 +159,6 @@ public class Position extends DomainEntity {
 	private Collection<Application>	applications;
 
 
-	@NotEmpty
 	@Valid
 	@EachNotNull
 	@ManyToMany(fetch = FetchType.EAGER)

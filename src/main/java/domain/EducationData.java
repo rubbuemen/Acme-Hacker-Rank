@@ -8,10 +8,12 @@ import javax.persistence.AccessType;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 
 import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
 import org.hibernate.validator.constraints.SafeHtml;
 import org.hibernate.validator.constraints.SafeHtml.WhiteListType;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -23,7 +25,7 @@ public class EducationData extends DomainEntity {
 	// Attributes
 	private String	degree;
 	private String	institution;
-	private String	mark;
+	private Double	mark;
 	private Date	startDate;
 	private Date	endDate;
 
@@ -49,13 +51,14 @@ public class EducationData extends DomainEntity {
 		this.institution = institution;
 	}
 
-	@NotBlank
-	@SafeHtml(whitelistType = WhiteListType.NONE)
-	public String getMark() {
+	@NotNull
+	@Range(min = 0, max = 10)
+	@Digits(integer = 2, fraction = 2)
+	public Double getMark() {
 		return this.mark;
 	}
 
-	public void setMark(final String mark) {
+	public void setMark(final Double mark) {
 		this.mark = mark;
 	}
 

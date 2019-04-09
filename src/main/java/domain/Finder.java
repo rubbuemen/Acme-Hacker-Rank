@@ -54,7 +54,7 @@ public class Finder extends DomainEntity {
 	}
 
 	@Min(0)
-	@Digits(integer = 2, fraction = 2)
+	@Digits(integer = 6, fraction = 2)
 	public Double getMinSalary() {
 		return this.minSalary;
 	}

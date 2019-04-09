@@ -212,6 +212,7 @@
 		<property name="name" value="Héctor" />
 		<property name="surnames" value="Molina Jimenez" />
 		<property name="VATNumber" value="TU463" />
+		<property name="photo" value="http://oi63.tinypic.com/2eoyw50.jpg" />
 		<property name="creditCard" ref="creditCard2" />
 		<property name="email" value="apple@acmehackerrank.com" />
 		<property name="phoneNumber" value="694039572" />
@@ -246,6 +247,7 @@
 		<property name="name" value="Santiago" />
 		<property name="surnames" value="Martinez Montero" />
 		<property name="VATNumber" value="TU463" />
+		<property name="photo" value="http://oi68.tinypic.com/15clvz5.jpg" />
 		<property name="creditCard" ref="creditCard3" />
 		<property name="email" value="microsoft@acmehackerrank.com" />
 		<property name="phoneNumber" value="698369572" />
@@ -274,6 +276,7 @@
 		<property name="name" value="Rayan" />
 		<property name="surnames" value="Riera Marin" />
 		<property name="VATNumber" value="TU463" />
+		<property name="photo" value="http://oi67.tinypic.com/qpigwy.jpg" />
 		<property name="creditCard" ref="creditCard4" />
 		<property name="email" value="ss@acmehackerrank.com" />
 		<property name="phoneNumber" value="696379442" />
@@ -290,6 +293,7 @@
 		<property name="name" value="Alberto" />
 		<property name="surnames" value="Rodriguez Calvo" />
 		<property name="VATNumber" value="TU463" />
+		<property name="photo" value="http://oi65.tinypic.com/2vspvlc.jpg" />
 		<property name="creditCard" ref="creditCard1" />
 		<property name="email" value="amazon@acmehackerrank.com" />
 		<property name="phoneNumber" value="653734711" />
@@ -307,6 +311,7 @@
 		<property name="name" value="Antonio" />
 		<property name="surnames" value="Garrido Gallardo" />
 		<property name="VATNumber" value="TU463" />
+		<property name="photo" value="http://oi63.tinypic.com/14ybim9.jpg" />
 		<property name="creditCard" ref="creditCard2" />
 		<property name="email" value="ibm@acmehackerrank.com" />
 		<property name="phoneNumber" value="663094368" />
@@ -1221,7 +1226,7 @@
 		<property name="welcomeMessageEnglish"
 			value="Welcome to Acme hacker Rank! We're IT hacker's favourite job marketplace!" />
 		<property name="welcomeMessageSpanish"
-			value="“¡Bienvenidos a Acme Hacker Rank! ¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
+			value="¡Bienvenidos a Acme Hacker Rank! ¡Somos el mercado de trabajo favorito de los profesionales de las TICs!" />
 		<property name="phoneCountryCode" value="+34" />
 		<property name="periodFinder" value="1" />
 		<property name="maxResultsFinder" value="10" />

@@ -2,6 +2,8 @@
 package services;
 
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -11,6 +13,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.PositionRepository;
+import domain.Company;
 import domain.Position;
 
 @Service
@@ -21,8 +24,10 @@ public class PositionService {
 	@Autowired
 	private PositionRepository	positionRepository;
 
-
 	// Supporting services
+	@Autowired
+	private CompanyService		companyService;
+
 
 	// Simple CRUD methods
 	public Position create() {
@@ -74,8 +79,47 @@ public class PositionService {
 		this.positionRepository.delete(position);
 	}
 
-
 	// Other business methods
+	//R7.2
+	public Collection<Position> findPositionsFinalModeNotCancelled() {
+		Collection<Position> result;
+
+		result = this.positionRepository.findPositionsFinalModeNotCancelled();
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Map<Position, Company> getMapPositionCompany(final Collection<Position> positions) {
+		final Map<Position, Company> result = new HashMap<>();
+
+		if (positions != null)
+			for (final Position p : positions) {
+				final Company company = this.companyService.findCompanyByPositionId(p.getId());
+				result.put(p, company);
+			}
+
+		return result;
+	}
+
+	public Collection<Position> findPositionsFinalModeNotCancelledByCompanyId(final int companyId) {
+		Collection<Position> result;
+
+		result = this.positionRepository.findPositionsFinalModeNotCancelledByCompanyId(companyId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Collection<Position> findPositionsFinalModeNotCancelledBySingleKeyWord(final String singleKeyWord) {
+		Collection<Position> result;
+
+		result = this.positionRepository.findPositionsFinalModeNotCancelledBySingleKeyWord(singleKeyWord);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 
 	// Reconstruct methods
 	@Autowired

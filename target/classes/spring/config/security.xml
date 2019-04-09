@@ -37,6 +37,9 @@
 		<security:intercept-url pattern="/security/loginFailure.do"	access="permitAll" />
 		<security:intercept-url pattern="/welcome/index.do"	access="permitAll" />
 		<security:intercept-url pattern="/welcome/legal.do" access="permitAll"/>
+		<security:intercept-url pattern="/position/listGeneric.do" access="permitAll"/>
+		<security:intercept-url pattern="/company/show.do"	access="permitAll" />
+		<security:intercept-url pattern="/company/list.do" access="permitAll"/>
 		
 
 		<security:intercept-url pattern="/actor/register-company.do" access="isAnonymous()" />

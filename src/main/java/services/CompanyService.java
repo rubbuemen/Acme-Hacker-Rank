@@ -55,6 +55,7 @@ public class CompanyService {
 		return result;
 	}
 
+	//R7.3
 	public Collection<Company> findAll() {
 		Collection<Company> result;
 
@@ -94,8 +95,15 @@ public class CompanyService {
 		this.companyRepository.delete(company);
 	}
 
-
 	// Other business methods
+	public Company findCompanyByPositionId(final int positionId) {
+		Company result;
+
+		result = this.companyRepository.findCompanyByPositionId(positionId);
+
+		return result;
+	}
+
 
 	// Reconstruct methods
 	@Autowired

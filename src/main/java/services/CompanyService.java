@@ -104,6 +104,22 @@ public class CompanyService {
 		return result;
 	}
 
+	public Company findCompanyByProblemId(final int problemId) {
+		Company result;
+
+		result = this.companyRepository.findCompanyByProblemId(problemId);
+
+		return result;
+	}
+
+	public Company findCompanyByApplicationId(final int applicationId) {
+		Company result;
+
+		result = this.companyRepository.findCompanyByApplicationId(applicationId);
+
+		return result;
+	}
+
 
 	// Reconstruct methods
 	@Autowired

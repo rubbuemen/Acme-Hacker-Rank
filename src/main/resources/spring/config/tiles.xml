@@ -21,6 +21,7 @@
 		<value>/views/application/tiles.xml</value>
 		<value>/views/company/tiles.xml</value>
 		<value>/views/curricula/tiles.xml</value>
+		<value>/views/dashboard/tiles.xml</value>
 		<value>/views/educationData/tiles.xml</value>
 		<value>/views/finder/tiles.xml</value>
 		<value>/views/message/tiles.xml</value>

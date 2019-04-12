@@ -12,6 +12,7 @@ import org.springframework.validation.Validator;
 
 import repositories.FinderRepository;
 import domain.Finder;
+import domain.Position;
 
 @Service
 @Transactional
@@ -74,8 +75,16 @@ public class FinderService {
 		this.finderRepository.delete(finder);
 	}
 
-
 	// Other business methods
+	public Collection<Finder> findFindersByPosition(final Position position) {
+		Collection<Finder> result;
+
+		result = this.finderRepository.findFindersByPosition(position);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 
 	// Reconstruct methods
 	@Autowired

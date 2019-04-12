@@ -22,4 +22,10 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 	@Query("select c from Company c join c.positions p where p.id = ?1")
 	Company findCompanyByPositionId(int positionId);
 
+	@Query("select c from Company c join c.problems p where p.id = ?1")
+	Company findCompanyByProblemId(int problemId);
+
+	@Query("select c from Company c join c.positions p join p.applications a where a.id = ?1")
+	Company findCompanyByApplicationId(int applicationId);
+
 }

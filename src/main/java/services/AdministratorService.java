@@ -15,6 +15,9 @@ import security.Authority;
 import security.UserAccount;
 import domain.Actor;
 import domain.Administrator;
+import domain.Company;
+import domain.Hacker;
+import domain.Position;
 import forms.AdministratorForm;
 
 @Service
@@ -96,8 +99,130 @@ public class AdministratorService {
 		this.administratorRepository.delete(administrator);
 	}
 
-
 	// Other business methods
+	//Queries Dashboard
+	public String dashboardQueryC1() {
+		String result;
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginAdministrator(actorLogged);
+
+		result = this.administratorRepository.dashboardQueryC1();
+
+		return result;
+	}
+
+	public String dashboardQueryC2() {
+		String result;
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginAdministrator(actorLogged);
+
+		result = this.administratorRepository.dashboardQueryC2();
+
+		return result;
+	}
+
+	public Collection<Company> dashboardQueryC3() {
+		Collection<Company> result;
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginAdministrator(actorLogged);
+
+		result = this.administratorRepository.dashboardQueryC3();
+
+		return result;
+	}
+
+	public Collection<Hacker> dashboardQueryC4() {
+		Collection<Hacker> result;
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginAdministrator(actorLogged);
+
+		result = this.administratorRepository.dashboardQueryC4();
+
+		return result;
+	}
+
+	public String dashboardQueryC5() {
+		String result;
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginAdministrator(actorLogged);
+
+		result = this.administratorRepository.dashboardQueryC5();
+
+		return result;
+	}
+
+	public Position dashboardQueryC6_1() {
+		Position result = null;
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginAdministrator(actorLogged);
+
+		if (!this.administratorRepository.dashboardQueryC6_1().isEmpty())
+			result = this.administratorRepository.dashboardQueryC6_1().iterator().next();
+
+		return result;
+	}
+
+	public Position dashboardQueryC6_2() {
+		Position result = null;
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginAdministrator(actorLogged);
+
+		if (!this.administratorRepository.dashboardQueryC6_2().isEmpty())
+			result = this.administratorRepository.dashboardQueryC6_2().iterator().next();
+
+		return result;
+	}
+
+	public String dashboardQueryB1() {
+		String result;
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginAdministrator(actorLogged);
+
+		result = this.administratorRepository.dashboardQueryB1();
+
+		return result;
+	}
+
+	public String dashboardQueryB2() {
+		String result;
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginAdministrator(actorLogged);
+
+		result = this.administratorRepository.dashboardQueryB2();
+
+		return result;
+	}
+
+	public String dashboardQueryB3() {
+		String result;
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginAdministrator(actorLogged);
+
+		result = this.administratorRepository.dashboardQueryB3();
+
+		return result;
+	}
+
 
 	// Reconstruct methods
 	@Autowired

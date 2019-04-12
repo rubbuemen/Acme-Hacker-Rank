@@ -103,8 +103,33 @@ public class HackerService {
 		this.hackerRepository.delete(hacker);
 	}
 
-
 	// Other business methods
+	public Hacker saveAuxiliar(final Hacker hacker) {
+		Assert.notNull(hacker);
+
+		Hacker result;
+
+		result = this.hackerRepository.save(hacker);
+
+		return result;
+	}
+
+	public Hacker findHackerByApplicationId(final int applicationId) {
+		Hacker result;
+
+		result = this.hackerRepository.findHackerByApplicationId(applicationId);
+
+		return result;
+	}
+
+	public Hacker findHackerByCurriculaId(final int curriculaId) {
+		Hacker result;
+
+		result = this.hackerRepository.findHackerByCurriculaId(curriculaId);
+
+		return result;
+	}
+
 
 	// Reconstruct methods
 	@Autowired

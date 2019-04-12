@@ -47,7 +47,7 @@
 	<spring:message code="actor.address" var="address" />
 	<display:column property="address" title="${address}" />
 	
-		<spring:message code="company.commercialName" var="commercialName" />
+	<spring:message code="company.commercialName" var="commercialName" />
 	<display:column property="commercialName" title="${commercialName}" />
 	
 	<spring:message code="company.positions" var="positions" />

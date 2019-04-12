@@ -18,12 +18,24 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="${actionURL}" modelAttribute="entidad">
+<form:form action="${actionURL}" modelAttribute="problem">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	
+	<acme:textbox code="problem.title" path="title" placeholder="Lorem Ipsum"/>
+	<br />
 
+	<acme:textbox code="problem.statement" path="statement" placeholder="Lorem Ipsum"/>
+	<br />
+	
+	<acme:textbox code="problem.hint" path="hint" placeholder="Lorem Ipsum"/>
+	<br />
+	
+	<acme:textarea code="problem.attachments" path="attachments" placeholder="http://Loremipsum.com, http://Loremipsum.com, ..." />
+	<br />
+	
 	<jstl:choose>
-		<jstl:when test="${entidad.id == 0}">
+		<jstl:when test="${problem.id == 0}">
 			<acme:submit name="save" code="button.register" />
 		</jstl:when>
 		<jstl:otherwise>
@@ -31,5 +43,5 @@
 		</jstl:otherwise>
 	</jstl:choose>
 	
-	<acme:cancel url="" code="button.cancel" />
+	<acme:cancel url="problem/company/list.do" code="button.cancel" />
 </form:form>

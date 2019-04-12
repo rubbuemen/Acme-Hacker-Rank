@@ -10,19 +10,14 @@
 
 <tiles-definitions>
 
-	<definition name="systemConfiguration/create" extends="master.page">
-		<put-attribute name="title" value="Crear configuración del sistema" />
-		<put-attribute name="body" value="/views/systemConfiguration/edit.jsp" />
-	</definition>
-	
 	<definition name="systemConfiguration/edit" extends="master.page">
-		<put-attribute name="title" value="Editar configuración del sistema" />
+		<put-attribute name="title" value="Editar la configuración del sistema" />
 		<put-attribute name="body" value="/views/systemConfiguration/edit.jsp" />
 	</definition>
 
-	<definition name="systemConfiguration/list" extends="master.page">
-		<put-attribute name="title" value="Lista de configuración del sistema" />
-		<put-attribute name="body" value="/views/systemConfiguration/list.jsp" />
+	<definition name="systemConfiguration/show" extends="master.page">
+		<put-attribute name="title" value="Mostrar la configuración del sistema" />
+		<put-attribute name="body" value="/views/systemConfiguration/show.jsp" />
 	</definition>
 
 </tiles-definitions>

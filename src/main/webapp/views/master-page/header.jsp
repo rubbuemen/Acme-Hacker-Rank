@@ -39,7 +39,19 @@
 				<a class="fNiv"><spring:message code="master.page.company" /></a>
 				<ul>
 					<li class="arrow"></li>
-<%-- 					<li><a href="float/brotherhood/list.do"><spring:message code="master.page.floats" /></a></li> --%>
+					<li><a href="position/company/list.do"><spring:message code="master.page.positions" /></a></li>
+					<li><a href="problem/company/list.do"><spring:message code="master.page.problems" /></a></li>
+					<li><a href="application/company/list.do"><spring:message code="master.page.applications" /></a></li>
+				</ul>
+			</li>
+		</security:authorize>
+		
+		<security:authorize access="hasRole('HACKER')">
+			<li>
+				<a class="fNiv"><spring:message code="master.page.hacker" /></a>
+				<ul>
+					<li class="arrow"></li>
+					<li><a href="application/hacker/list.do"><spring:message code="master.page.applications" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>
@@ -59,7 +71,7 @@
 		</security:authorize>
 		
 		<security:authorize access="isAuthenticated()">
-		<li><a class="fNiv" href="position/listGeneric.do"><spring:message code="master.page.positions" /></a></li>
+		<li><a class="fNiv" href="position/listGeneric.do"><spring:message code="master.page.positionsAvailables" /></a></li>
 		<li><a class="fNiv" href="company/list.do"><spring:message code="master.page.companies" /></a></li>
 			<li>
 				<a class="fNiv"> 

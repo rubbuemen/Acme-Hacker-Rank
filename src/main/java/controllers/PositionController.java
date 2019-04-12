@@ -38,9 +38,9 @@ public class PositionController extends AbstractController {
 		Map<Position, Company> mapPositionCompany = null;
 
 		if (companyId != null)
-			positions = this.positionService.findPositionsFinalModeNotCancelledByCompanyId(companyId);
+			positions = this.positionService.findPositionsFinalModeNotCancelledNotDeadlineByCompanyId(companyId);
 		else {
-			positions = this.positionService.findPositionsFinalModeNotCancelled();
+			positions = this.positionService.findPositionsFinalModeNotCancelledNotDeadline();
 			mapPositionCompany = this.positionService.getMapPositionCompany(positions);
 		}
 
@@ -59,7 +59,7 @@ public class PositionController extends AbstractController {
 		Collection<Position> positions;
 		Map<Position, Company> mapPositionCompany = null;
 
-		positions = this.positionService.findPositionsFinalModeNotCancelledBySingleKeyWord(singleKeyWord);
+		positions = this.positionService.findPositionsFinalModeNotCancelledNotDeadlineBySingleKeyWord(singleKeyWord);
 		mapPositionCompany = this.positionService.getMapPositionCompany(positions);
 
 		result = new ModelAndView("position/listGeneric");

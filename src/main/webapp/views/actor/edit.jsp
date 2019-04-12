@@ -58,7 +58,7 @@
 		<acme:textbox code="actor.photo" path="actor.photo" placeholder="http://LoremIpsum.com" type="url" />
 		<jstl:if test="${not empty actorForm.actor.photo}">
 			<br />
-			<img src="<jstl:out value='${actorForm.actor.photo}' />" />
+			<img src="<jstl:out value='${actorForm.actor.photo}' />"  width="200px" height="200px"  />
 			<br />
 		</jstl:if>
 		<br />

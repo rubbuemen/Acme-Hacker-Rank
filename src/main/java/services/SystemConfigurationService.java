@@ -11,6 +11,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.SystemConfigurationRepository;
+import domain.Actor;
 import domain.SystemConfiguration;
 
 @Service
@@ -21,12 +22,13 @@ public class SystemConfigurationService {
 	@Autowired
 	private SystemConfigurationRepository	systemConfigurationRepository;
 
-
 	// Supporting services
+	@Autowired
+	private ActorService					actorService;
+
 
 	// Simple CRUD methods
 	public SystemConfiguration create() {
-
 		SystemConfiguration result;
 
 		result = new SystemConfiguration();
@@ -45,6 +47,7 @@ public class SystemConfigurationService {
 
 	public SystemConfiguration findOne(final int systemConfigurationId) {
 		Assert.isTrue(systemConfigurationId != 0);
+
 		SystemConfiguration result;
 
 		result = this.systemConfigurationRepository.findOne(systemConfigurationId);
@@ -56,12 +59,13 @@ public class SystemConfigurationService {
 	public SystemConfiguration save(final SystemConfiguration systemConfiguration) {
 		Assert.notNull(systemConfiguration);
 
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginAdministrator(actorLogged);
+
 		SystemConfiguration result;
 
-		if (systemConfiguration.getId() == 0)
-			result = this.systemConfigurationRepository.save(systemConfiguration);
-		else
-			result = this.systemConfigurationRepository.save(systemConfiguration);
+		result = this.systemConfigurationRepository.save(systemConfiguration);
 
 		return result;
 	}
@@ -93,13 +97,16 @@ public class SystemConfigurationService {
 	public SystemConfiguration reconstruct(final SystemConfiguration systemConfiguration, final BindingResult binding) {
 		SystemConfiguration result;
 
-		if (systemConfiguration.getId() == 0)
-			result = systemConfiguration;
-		else {
-			result = this.systemConfigurationRepository.findOne(systemConfiguration.getId());
-			Assert.notNull(result, "This entity does not exist");
-
-		}
+		result = this.systemConfigurationRepository.findOne(systemConfiguration.getId());
+		Assert.notNull(result, "This entity does not exist");
+		result.setNameSystem(systemConfiguration.getNameSystem());
+		result.setBannerUrl(systemConfiguration.getBannerUrl());
+		result.setWelcomeMessageEnglish(systemConfiguration.getWelcomeMessageEnglish());
+		result.setWelcomeMessageSpanish(systemConfiguration.getWelcomeMessageSpanish());
+		result.setPhoneCountryCode(systemConfiguration.getPhoneCountryCode());
+		result.setPeriodFinder(systemConfiguration.getPeriodFinder());
+		result.setMaxResultsFinder(systemConfiguration.getMaxResultsFinder());
+		result.setSpamWords(systemConfiguration.getSpamWords());
 
 		this.validator.validate(result, binding);
 

@@ -21,6 +21,8 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.validator.constraints.NotBlank;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.SafeHtml;
@@ -92,7 +94,8 @@ public class Position extends DomainEntity {
 		this.deadline = deadline;
 	}
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	@NotEmpty
 	@EachNotBlank
 	public Collection<String> getSkills() {
@@ -103,7 +106,8 @@ public class Position extends DomainEntity {
 		this.skills = skills;
 	}
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
+	@Fetch(FetchMode.SELECT)
 	@NotEmpty
 	@EachNotBlank
 	public Collection<String> getTechnologies() {
@@ -161,7 +165,7 @@ public class Position extends DomainEntity {
 
 	@Valid
 	@EachNotNull
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany
 	public Collection<Problem> getProblems() {
 		return this.problems;
 	}

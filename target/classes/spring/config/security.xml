@@ -46,10 +46,18 @@
 		<security:intercept-url pattern="/actor/register-hacker.do" access="isAnonymous()" />
 		
 		<security:intercept-url pattern="/actor/company/**" access="hasRole('COMPANY')" />
+		<security:intercept-url pattern="/position/company/**" access="hasRole('COMPANY')" />
+		<security:intercept-url pattern="/problem/company/**" access="hasRole('COMPANY')" />
+		<security:intercept-url pattern="/application/company/**" access="hasRole('COMPANY')" />
 		
 		<security:intercept-url pattern="/actor/hacker/**" access="hasRole('HACKER')" />
+		<security:intercept-url pattern="/position/hacker/**" access="hasRole('HACKER')" />
+		<security:intercept-url pattern="/problem/hacker/**" access="hasRole('HACKER')" />
+		<security:intercept-url pattern="/application/hacker/**" access="hasRole('HACKER')" />
 		
 		<security:intercept-url pattern="/actor/administrator/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/systemConfiguration/administrator/**" access="hasRole('ADMIN')" />
+		<security:intercept-url pattern="/dashboard/administrator/**" access="hasRole('ADMIN')" />
 		
 		<security:intercept-url pattern="/socialProfile/**" access="isAuthenticated()" />
 		<security:intercept-url pattern="/message/**" access="isAuthenticated()" />

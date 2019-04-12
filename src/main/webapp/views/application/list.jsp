@@ -19,14 +19,71 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table pagesize="5" class="displaytag" name="entidades" requestURI="${requestURI}" id="row">
+<display:table pagesize="5" class="displaytag" name="applications" requestURI="${requestURI}" id="row">
 
-	<spring:message code="entidad.traduccion" var="variable" />
-	<display:column property="atributo" title="${variable}" />
-			
+	<spring:message code="application.moment" var="moment" />
+	<display:column title="${moment}">
+			<fmt:formatDate var="format" value="${row.moment}" pattern="dd/MM/YYYY HH:mm" />
+			<jstl:out value="${format}" />
+	</display:column>
+	
+	<spring:message code="application.explications" var="explications" />
+	<display:column property="explications" title="${explications}" />
+	
+	<spring:message code="application.codeLink" var="codeLink" />
+	<display:column title="${codeLink}" >
+		<a href="<jstl:out value="${row.codeLink}"/>"><jstl:out value="${row.codeLink}"/></a>
+	</display:column>
+	
+	<spring:message code="application.momentSubmit" var="momentSubmit" />
+	<display:column title="${momentSubmit}">
+			<fmt:formatDate var="format2" value="${row.momentSubmit}" pattern="dd/MM/YYYY HH:mm" />
+			<jstl:out value="${format2}" />
+	</display:column>
+	
+	<spring:message code="application.status" var="status" />
+	<display:column property="status" title="${status}" />
+	
+	<security:authorize access="hasRole('COMPANY')">	
+		<spring:message code="application.position" var="position" />
+		<display:column title="${position}">
+			<acme:button url="position/company/show.do?positionId=${row.position.id}" code="button.show" />
+		</display:column>
+		
+		<spring:message code="application.problem" var="problem" />
+		<display:column title="${problem}">
+			<acme:button url="problem/company/show.do?problemId=${row.problem.id}" code="button.show" />
+		</display:column>
+	
+		<spring:message code="application.decideApplication" var="decideApplication" />
+		<display:column title="${decideApplication}">
+			<jstl:if test="${row.status eq 'SUBMITTED'}">
+				<acme:button url="application/company/accept.do?applicationId=${row.id}" code="button.accept" />
+				<acme:button url="application/company/reject.do?applicationId=${row.id}" code="button.reject" />
+			</jstl:if>	
+		</display:column>
+	</security:authorize>
+	
+	<security:authorize access="hasRole('HACKER')">	
+		<spring:message code="application.position" var="position" />
+		<display:column title="${position}">
+			<acme:button url="position/hacker/show.do?positionId=${row.position.id}" code="button.show" />
+		</display:column>
+		
+		<spring:message code="application.problem" var="problem" />
+		<display:column title="${problem}">
+			<acme:button url="problem/hacker/show.do?problemId=${row.problem.id}" code="button.show" />
+		</display:column>
+		
+		<spring:message code="application.submitSolution" var="submitSolution" />
+		<display:column title="${submitSolution}">
+			<jstl:if test="${row.status eq 'PENDING'}">
+				<acme:button url="application/hacker/edit.do?applicationId=${row.id}" code="button.submit" />
+			</jstl:if>	
+		</display:column>
+	</security:authorize>
 </display:table>
 
-
-<acme:button url="" code="button.create" />
-
-<acme:button url="" code="button.back" />
+<security:authorize access="hasRole('HACKER')">	
+	<acme:button url="application/hacker/create.do" code="button.create" />
+</security:authorize>

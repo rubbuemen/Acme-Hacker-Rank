@@ -59,12 +59,12 @@ public class Application extends DomainEntity {
 		this.explications = explications;
 	}
 
+	@URL
+	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public String getCodeLink() {
 		return this.codeLink;
 	}
 
-	@URL
-	@SafeHtml(whitelistType = WhiteListType.NONE)
 	public void setCodeLink(final String codeLink) {
 		this.codeLink = codeLink;
 	}

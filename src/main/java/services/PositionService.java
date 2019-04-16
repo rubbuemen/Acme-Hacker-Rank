@@ -70,8 +70,9 @@ public class PositionService {
 		final Collection<Application> applications = new HashSet<>();
 
 		// R4
-		final String ticker = ""; //Ticker will be generated in reconstruct method
+		final String ticker = ""; //Será generado en el reconstruct
 
+		result.setTicker(ticker);
 		result.setProblems(problems);
 		result.setApplications(applications);
 		result.setTicker(ticker);
@@ -352,7 +353,8 @@ public class PositionService {
 		final Actor actorLogged = this.actorService.findActorLogged();
 		Assert.notNull(actorLogged);
 
-		final String commercialName = ((Company) actorLogged).getCommercialName();
+		String commercialName = ((Company) actorLogged).getCommercialName();
+		commercialName = commercialName.replaceAll(" ", "");
 		String result = "";
 		while (true) {
 			result = "";

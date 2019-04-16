@@ -158,7 +158,7 @@ public class CompanyProblemController extends AbstractController {
 		ModelAndView result;
 		Problem problem;
 
-		problem = this.problemService.findOne(problemId);
+		problem = this.problemService.findProblemCompanyLogged(problemId);
 
 		result = new ModelAndView("problem/show");
 

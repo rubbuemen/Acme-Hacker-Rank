@@ -7,10 +7,12 @@ import javax.persistence.Access;
 import javax.persistence.AccessType;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -26,6 +28,9 @@ import cz.jirutka.validator.collection.constraints.EachNotNull;
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Access(AccessType.PROPERTY)
+@Table(indexes = {
+	@Index(columnList = "name, isSpammer")
+})
 public abstract class Actor extends DomainEntity {
 
 	// Attributes

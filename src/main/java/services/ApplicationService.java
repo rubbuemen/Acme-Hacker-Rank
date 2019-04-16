@@ -3,8 +3,11 @@ package services;
 
 import java.util.Collection;
 import java.util.Date;
+import java.util.HashSet;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -16,6 +19,7 @@ import domain.Actor;
 import domain.Application;
 import domain.Company;
 import domain.Hacker;
+import domain.Message;
 import domain.Position;
 
 @Service
@@ -44,6 +48,9 @@ public class ApplicationService {
 
 	@Autowired
 	private HackerService			hackerService;
+
+	@Autowired
+	private MessageService			messageService;
 
 
 	// Simple CRUD methods
@@ -122,6 +129,36 @@ public class ApplicationService {
 			result = this.applicationRepository.save(application);
 		}
 
+		// R27
+		final Company company = this.companyService.findCompanyByApplicationId(result.getId());
+		final Hacker hacker = result.getHacker();
+		final Message message = this.messageService.create();
+
+		final Locale locale = LocaleContextHolder.getLocale();
+		if (result.getStatus().equals("SUBMITTED")) {
+			if (locale.getLanguage().equals("es")) {
+				message.setSubject("Una nueva solicitud ha sido enviada");
+				message.setBody("El hacker " + hacker.getName() + " " + hacker.getSurnames() + " ha enviado una solución al problema envuelto en la solicitud");
+			} else {
+				message.setSubject("A new application has been submitted");
+				message.setBody("The hacker " + hacker.getName() + " " + hacker.getSurnames() + " has submitted a solution to the problem wrapped in the application");
+			}
+		} else if (locale.getLanguage().equals("es")) {
+			message.setSubject("Una nueva solicitud está pendiente");
+			message.setBody("El hacker " + hacker.getName() + " " + hacker.getSurnames() + " ha hecho una solicutud pendiente de resolver");
+		} else {
+			message.setSubject("A new application is pending");
+			message.setBody("The hacker " + hacker.getName() + " " + hacker.getSurnames() + " has made a pending application to resolve");
+		}
+
+		final Actor sender = this.actorService.getSystemActor();
+		message.setSender(sender);
+
+		final Collection<Actor> recipients = new HashSet<>();
+		recipients.add(company);
+		message.setRecipients(recipients);
+		this.messageService.save(message, true);
+
 		return result;
 	}
 
@@ -189,6 +226,28 @@ public class ApplicationService {
 
 		this.positionService.changeCancelled(result.getPosition());
 
+		// R27
+		final Company company = this.companyService.findCompanyByApplicationId(result.getId());
+		final Hacker hacker = result.getHacker();
+		final Message message = this.messageService.create();
+
+		final Locale locale = LocaleContextHolder.getLocale();
+		if (locale.getLanguage().equals("es")) {
+			message.setSubject("Una solicitud ha cambiado de estado");
+			message.setBody("La empresa " + company.getCommercialName() + " ha cambiado el estado de la solicitud cuyo momento de creación fue " + result.getMoment() + " a " + result.getStatus());
+		} else {
+			message.setSubject("An application changed status");
+			message.setBody("The company " + company.getCommercialName() + " has changed the status of the application whose moment was " + result.getMoment() + " to " + result.getStatus());
+		}
+
+		final Actor sender = this.actorService.getSystemActor();
+		message.setSender(sender);
+
+		final Collection<Actor> recipients = new HashSet<>();
+		recipients.add(hacker);
+		message.setRecipients(recipients);
+		this.messageService.save(message, true);
+
 		return result;
 	}
 
@@ -210,6 +269,28 @@ public class ApplicationService {
 		application.setStatus("REJECTED");
 
 		result = this.applicationRepository.save(application);
+
+		// R27
+		final Company company = this.companyService.findCompanyByApplicationId(result.getId());
+		final Hacker hacker = result.getHacker();
+		final Message message = this.messageService.create();
+
+		final Locale locale = LocaleContextHolder.getLocale();
+		if (locale.getLanguage().equals("es")) {
+			message.setSubject("Una solicitud ha cambiado de estado");
+			message.setBody("La empresa " + company.getCommercialName() + " ha cambiado el estado de la solicitud cuyo momento de creación fue " + result.getMoment() + " a " + result.getStatus());
+		} else {
+			message.setSubject("An application changed status");
+			message.setBody("The company " + company.getCommercialName() + " has changed the status of the application whose moment was " + result.getMoment() + " to " + result.getStatus());
+		}
+
+		final Actor sender = this.actorService.getSystemActor();
+		message.setSender(sender);
+
+		final Collection<Actor> recipients = new HashSet<>();
+		recipients.add(hacker);
+		message.setRecipients(recipients);
+		this.messageService.save(message, true);
 
 		return result;
 	}

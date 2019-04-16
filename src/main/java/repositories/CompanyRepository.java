@@ -10,6 +10,8 @@
 
 package repositories;
 
+import java.util.Collection;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
@@ -27,5 +29,8 @@ public interface CompanyRepository extends JpaRepository<Company, Integer> {
 
 	@Query("select c from Company c join c.positions p join p.applications a where a.id = ?1")
 	Company findCompanyByApplicationId(int applicationId);
+
+	@Query("select distinct c from Company c join c.positions p join p.applications a join a.curricula cu where cu.id = ?1")
+	Collection<Company> findCompaniesByCurriculaId(int curriculaId);
 
 }

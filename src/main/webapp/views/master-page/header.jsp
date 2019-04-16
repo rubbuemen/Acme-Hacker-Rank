@@ -52,6 +52,8 @@
 				<ul>
 					<li class="arrow"></li>
 					<li><a href="application/hacker/list.do"><spring:message code="master.page.applications" /></a></li>
+					<li><a href="curricula/hacker/list.do"><spring:message code="master.page.curriculas" /></a></li>
+					<li><a href="finder/hacker/edit.do"><spring:message code="master.page.finder" /></a></li>
 				</ul>
 			</li>
 		</security:authorize>
@@ -73,6 +75,8 @@
 		<security:authorize access="isAuthenticated()">
 		<li><a class="fNiv" href="position/listGeneric.do"><spring:message code="master.page.positionsAvailables" /></a></li>
 		<li><a class="fNiv" href="company/list.do"><spring:message code="master.page.companies" /></a></li>
+		<li><a class="fNiv" href="socialProfile/list.do"><spring:message code="master.page.socialProfiles" /></a></li>
+		<li><a class="fNiv" href="message/list.do"><spring:message code="master.page.messages" /></a></li>
 			<li>
 				<a class="fNiv"> 
 					<spring:message code="master.page.profile" /> 

@@ -19,14 +19,29 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table pagesize="5" class="displaytag" name="entidades" requestURI="${requestURI}" id="row">
+<display:table pagesize="5" class="displaytag" name="socialProfiles" requestURI="${requestURI}" id="row">
 
-	<spring:message code="entidad.traduccion" var="variable" />
-	<display:column property="atributo" title="${variable}" />
+	<spring:message code="socialProfile.nick" var="nick" />
+	<display:column property="nick" title="${nick}" />
+	
+	<spring:message code="socialProfile.socialNetworkName" var="socialNetworkName" />
+	<display:column property="socialNetworkName" title="${socialNetworkName}" />
+	
+	<spring:message code="socialProfile.profileLink" var="profileLink" />
+	<display:column title="${profileLink}" >
+		<a href="<jstl:out value="${row.profileLink}"/>">${row.profileLink}</a>
+	</display:column>
+	
+	<spring:message code="socialProfile.edit" var="editH" />
+	<display:column title="${editH}">
+		<acme:button url="socialProfile/edit.do?socialProfileId=${row.id}" code="button.edit" />
+	</display:column>
+		
+	<spring:message code="socialProfile.delete" var="deleteH" />
+	<display:column title="${deleteH}">
+		<acme:button url="socialProfile/delete.do?socialProfileId=${row.id}" code="button.delete" />
+	</display:column>
 			
 </display:table>
 
-
-<acme:button url="" code="button.create" />
-
-<acme:button url="" code="button.back" />
+<acme:button url="socialProfile/create.do" code="button.create" />

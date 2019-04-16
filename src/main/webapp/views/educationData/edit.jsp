@@ -18,12 +18,27 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="${actionURL}" modelAttribute="entidad">
+<form:form action="${actionURL}" modelAttribute="educationData">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	
+	<acme:textbox code="educationData.degree" path="degree" placeholder="Lorem Ipsum"/>
+	<br />
+
+	<acme:textbox code="educationData.institution" path="institution" placeholder="Lorem Ipsum"/>
+	<br />
+	
+	<acme:textbox code="educationData.mark" path="mark" placeholder="NN.NN" type="number" min="0" max="10" step="0.01" />
+	<br />
+	
+	<acme:textbox code="educationData.startDate" path="startDate" placeholder="dd/MM/yyyy"  />
+	<br />
+	
+	<acme:textbox code="educationData.endDate" path="endDate" placeholder="dd/MM/yyyy"  />
+	<br />
 
 	<jstl:choose>
-		<jstl:when test="${entidad.id == 0}">
+		<jstl:when test="${educationData.id == 0}">
 			<acme:submit name="save" code="button.register" />
 		</jstl:when>
 		<jstl:otherwise>
@@ -31,5 +46,5 @@
 		</jstl:otherwise>
 	</jstl:choose>
 	
-	<acme:cancel url="" code="button.cancel" />
+	<acme:cancel url="curricula/hacker/show.do?curriculaId=${curricula.id}" code="button.cancel" />
 </form:form>

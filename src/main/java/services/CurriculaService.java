@@ -13,6 +13,7 @@ import org.springframework.validation.Validator;
 
 import repositories.CurriculaRepository;
 import domain.Actor;
+import domain.Company;
 import domain.Curricula;
 import domain.EducationData;
 import domain.Hacker;
@@ -44,13 +45,35 @@ public class CurriculaService {
 	@Autowired
 	private ActorService				actorService;
 
+	@Autowired
+	private HackerService				hackerService;
+
+	@Autowired
+	private CompanyService				companyService;
+
 
 	// Simple CRUD methods
+	// R17.1
 	public Curricula create() {
 
 		Curricula result;
 
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginHacker(actorLogged);
+
 		result = new Curricula();
+		final PersonalData personalData = this.personalDataService.create();
+		final Collection<PositionData> positionDatas = new HashSet<>();
+		final Collection<EducationData> educationDatas = new HashSet<>();
+		final Collection<MiscellaneousData> miscellaneousDatas = new HashSet<>();
+
+		result.setIsCopy(false);
+		result.setHacker((Hacker) actorLogged);
+		result.setPersonalData(personalData);
+		result.setPositionDatas(positionDatas);
+		result.setEducationDatas(educationDatas);
+		result.setMiscellaneousDatas(miscellaneousDatas);
 
 		return result;
 	}
@@ -74,20 +97,50 @@ public class CurriculaService {
 		return result;
 	}
 
+	// R17.1
 	public Curricula save(final Curricula curricula) {
 		Assert.notNull(curricula);
 
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginHacker(actorLogged);
+
 		Curricula result;
 
-		if (curricula.getId() == 0)
-			result = this.curriculaRepository.save(curricula);
-		else
-			result = this.curriculaRepository.save(curricula);
+		PersonalData personalData = curricula.getPersonalData();
+		personalData = this.personalDataService.save(personalData);
+
+		curricula.setPersonalData(personalData);
+
+		result = this.curriculaRepository.save(curricula);
 
 		return result;
 	}
 
+	public Curricula saveAuxiliar(final Curricula curricula) {
+		Assert.notNull(curricula);
+
+		Curricula result;
+
+		result = this.curriculaRepository.save(curricula);
+
+		return result;
+	}
+
+	// R17.1
 	public void delete(final Curricula curricula) {
+		Assert.notNull(curricula);
+		Assert.isTrue(curricula.getId() != 0);
+		Assert.isTrue(this.curriculaRepository.exists(curricula.getId()));
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginHacker(actorLogged);
+
+		this.curriculaRepository.delete(curricula);
+	}
+
+	public void deleteAuxiliar(final Curricula curricula) {
 		Assert.notNull(curricula);
 		Assert.isTrue(curricula.getId() != 0);
 		Assert.isTrue(this.curriculaRepository.exists(curricula.getId()));
@@ -117,7 +170,7 @@ public class CurriculaService {
 			positionData.setDescription(posData.getDescription());
 			positionData.setStartDate(posData.getStartDate());
 			positionData.setEndDate(posData.getEndDate());
-			positionData = this.positionDataService.save(positionData);
+			positionData = this.positionDataService.saveAuxiliar(positionData);
 			positionDatas.add(positionData);
 		}
 		for (final EducationData edData : curricula.getEducationDatas()) {
@@ -127,14 +180,14 @@ public class CurriculaService {
 			educationData.setMark(edData.getMark());
 			educationData.setStartDate(edData.getStartDate());
 			educationData.setEndDate(edData.getEndDate());
-			educationData = this.educationDataService.save(educationData);
+			educationData = this.educationDataService.saveAuxiliar(educationData);
 			educationDatas.add(educationData);
 		}
 		for (final MiscellaneousData misData : curricula.getMiscellaneousDatas()) {
 			MiscellaneousData miscellaneousData = this.miscellaneousDataService.create();
 			miscellaneousData.setText(misData.getText());
 			miscellaneousData.setAttachments(misData.getAttachments());
-			miscellaneousData = this.miscellaneousDataService.save(miscellaneousData);
+			miscellaneousData = this.miscellaneousDataService.saveAuxiliar(miscellaneousData);
 			miscellaneousDatas.add(miscellaneousData);
 		}
 
@@ -164,6 +217,74 @@ public class CurriculaService {
 		return result;
 	}
 
+	public Curricula findCurriculaByPersonalDataId(final int personalDataId) {
+		Curricula result;
+
+		result = this.curriculaRepository.findCurriculaByPersonalDataId(personalDataId);
+
+		return result;
+	}
+
+	public Curricula findCurriculaByPositionDataId(final int positionDataId) {
+		Curricula result;
+
+		result = this.curriculaRepository.findCurriculaByPositionDataId(positionDataId);
+
+		return result;
+	}
+
+	public Curricula findCurriculaByEducationDataId(final int educationDataId) {
+		Curricula result;
+
+		result = this.curriculaRepository.findCurriculaByEducationDataId(educationDataId);
+
+		return result;
+	}
+
+	public Curricula findCurriculaByMiscellaneousDataId(final int miscellaneousDataId) {
+		Curricula result;
+
+		result = this.curriculaRepository.findCurriculaByMiscellaneousDataId(miscellaneousDataId);
+
+		return result;
+	}
+
+	public Curricula findCurriculaHackerLogged(final int curriculaId) {
+		Assert.isTrue(curriculaId != 0);
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginHacker(actorLogged);
+
+		final Hacker hackerOwner = this.hackerService.findHackerByCurriculaId(curriculaId);
+		Assert.isTrue(actorLogged.equals(hackerOwner), "The logged actor is not the owner of this entity");
+
+		Curricula result;
+
+		result = this.curriculaRepository.findOne(curriculaId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Curricula findCurriculaCompanyLogged(final int curriculaId) {
+		Assert.isTrue(curriculaId != 0);
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginCompany(actorLogged);
+
+		final Collection<Company> companiesOwner = this.companyService.findCompaniesByCurriculaId(curriculaId);
+		Assert.isTrue(companiesOwner.contains(actorLogged), "The logged actor is not the owner of this entity");
+
+		Curricula result;
+
+		result = this.curriculaRepository.findOne(curriculaId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 
 	// Reconstruct methods
 	@Autowired
@@ -173,13 +294,19 @@ public class CurriculaService {
 	public Curricula reconstruct(final Curricula curricula, final BindingResult binding) {
 		Curricula result;
 
-		if (curricula.getId() == 0)
-			result = curricula;
-		else {
-			result = this.curriculaRepository.findOne(curricula.getId());
-			Assert.notNull(result, "This entity does not exist");
+		//Nunca se va a editar un curriculum como tal, si no sus datas
+		final Collection<PositionData> positionDatas = new HashSet<>();
+		final Collection<EducationData> educationDatas = new HashSet<>();
+		final Collection<MiscellaneousData> miscellaneousDatas = new HashSet<>();
 
-		}
+		final Actor actorLogged = this.actorService.findActorLogged();
+
+		curricula.setIsCopy(false);
+		curricula.setHacker((Hacker) actorLogged);
+		curricula.setPositionDatas(positionDatas);
+		curricula.setEducationDatas(educationDatas);
+		curricula.setMiscellaneousDatas(miscellaneousDatas);
+		result = curricula;
 
 		this.validator.validate(result, binding);
 

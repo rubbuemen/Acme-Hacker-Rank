@@ -189,8 +189,7 @@ public class CompanyPositionController extends AbstractController {
 		ModelAndView result;
 		Position position;
 
-		position = this.positionService.findOne(positionId);
-
+		position = this.positionService.findPositionCompanyLogged(positionId);
 		result = new ModelAndView("position/show");
 
 		result.addObject("position", position);

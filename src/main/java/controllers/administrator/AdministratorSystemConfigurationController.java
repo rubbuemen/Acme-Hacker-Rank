@@ -9,16 +9,20 @@
 
 package controllers.administrator;
 
+import java.util.Collection;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import services.ActorService;
 import services.SystemConfigurationService;
 import controllers.AbstractController;
+import domain.Actor;
 import domain.SystemConfiguration;
 
 @Controller
@@ -85,6 +89,65 @@ public class AdministratorSystemConfigurationController extends AbstractControll
 				result = this.createEditModelAndView(systemConfiguration, "commit.error");
 
 		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/computeSpammer", method = RequestMethod.GET)
+	public ModelAndView computeSpammer() {
+		ModelAndView result;
+
+		SystemConfiguration systemConfiguration;
+		systemConfiguration = this.systemConfigurationService.getConfiguration();
+
+		try {
+			this.systemConfigurationService.computeSpammers();
+			result = new ModelAndView("systemConfiguration/show");
+			result.addObject("systemConfiguration", systemConfiguration);
+			result.addObject("message", "successful.action");
+		} catch (final Throwable oops) {
+			result = new ModelAndView("systemConfiguration/show");
+			result.addObject("systemConfiguration", systemConfiguration);
+			result.addObject("message", "commit.error");
+		}
+
+		return result;
+	}
+
+	@RequestMapping(value = "/actorsList", method = RequestMethod.GET)
+	public ModelAndView actorsList() {
+		ModelAndView result;
+		Collection<Actor> actorsToBan, actorsBanned;
+
+		actorsToBan = this.actorService.findActorsToBan();
+		actorsBanned = this.actorService.findActorsBanned();
+
+		result = new ModelAndView("actor/list");
+
+		result.addObject("actorsToBan", actorsToBan);
+		result.addObject("actorsBanned", actorsBanned);
+
+		return result;
+	}
+
+	@RequestMapping(value = "/ban", method = RequestMethod.GET)
+	public ModelAndView ban(@RequestParam final int actorId) {
+		ModelAndView result;
+
+		final Actor actor = this.actorService.findOne(actorId);
+		this.actorService.banActor(actor);
+		result = new ModelAndView("redirect:/systemConfiguration/administrator/actorsList.do");
+
+		return result;
+	}
+
+	@RequestMapping(value = "/unban", method = RequestMethod.GET)
+	public ModelAndView unban(@RequestParam final int actorId) {
+		ModelAndView result;
+
+		final Actor actor = this.actorService.findOne(actorId);
+		this.actorService.unbanActor(actor);
+		result = new ModelAndView("redirect:/systemConfiguration/administrator/actorsList.do");
 
 		return result;
 	}

@@ -18,12 +18,27 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="${actionURL}" modelAttribute="entidad">
+<form:form action="${actionURL}" modelAttribute="personalData">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	
+	<acme:textbox code="personalData.name" path="name" placeholder="Lorem Ipsum"/>
+	<br />
+
+	<acme:textbox code="personalData.statement" path="statement" placeholder="Lorem Ipsum"/>
+	<br />
+	
+	<acme:textbox code="personalData.phoneNumber" path="phoneNumber" placeholder="+999 (999) 999999999" type="tel"/>
+	<br />
+	
+	<acme:textbox code="personalData.gitHubProfile" path="gitHubProfile" placeholder="http://LoremIpsum.com" type="url" />
+	<br />
+	
+	<acme:textbox code="personalData.linkedInProfile" path="linkedInProfile" placeholder="http://LoremIpsum.com" type="url" />
+	<br />
 
 	<jstl:choose>
-		<jstl:when test="${entidad.id == 0}">
+		<jstl:when test="${personalData.id == 0}">
 			<acme:submit name="save" code="button.register" />
 		</jstl:when>
 		<jstl:otherwise>
@@ -31,5 +46,5 @@
 		</jstl:otherwise>
 	</jstl:choose>
 	
-	<acme:cancel url="" code="button.cancel" />
+	<acme:cancel url="curricula/hacker/show.do?curriculaId=${curricula.id}" code="button.cancel" />
 </form:form>

@@ -1,7 +1,9 @@
 
 package services;
 
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashSet;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,9 +16,12 @@ import org.springframework.validation.Validator;
 import repositories.HackerRepository;
 import security.Authority;
 import security.UserAccount;
+import domain.Actor;
 import domain.Application;
+import domain.Curricula;
 import domain.Finder;
 import domain.Hacker;
+import domain.Position;
 import forms.HackerForm;
 
 @Service
@@ -36,6 +41,15 @@ public class HackerService {
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private PositionService		positionService;
+
+	@Autowired
+	private ApplicationService	applicationService;
+
+	@Autowired
+	private CurriculaService	curriculaService;
 
 
 	// Simple CRUD methods
@@ -100,7 +114,33 @@ public class HackerService {
 		Assert.isTrue(hacker.getId() != 0);
 		Assert.isTrue(this.hackerRepository.exists(hacker.getId()));
 
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginHacker(actorLogged);
+
+		final Hacker hackerLogged = (Hacker) actorLogged;
+
+		this.actorService.deleteEntities(hackerLogged);
+
+		final Collection<Application> applications = new HashSet<>(hackerLogged.getApplications());
+		for (final Application a : applications) {
+			final Position p = a.getPosition();
+			final Curricula c = a.getCurricula();
+			p.getApplications().remove(a);
+			hackerLogged.getApplications().remove(a);
+			this.applicationService.delete(a);
+			this.curriculaService.deleteAuxiliar(c);
+		}
+
+		final Collection<Curricula> curriculasHacker = this.curriculaService.findCurriculasByHackerLogged();
+		for (final Curricula c : curriculasHacker)
+			this.curriculaService.deleteAuxiliar(c);
+
+		final Finder finder = hacker.getFinder();
+
+		this.hackerRepository.flush();
 		this.hackerRepository.delete(hacker);
+		this.finderService.delete(finder);
 	}
 
 	// Other business methods
@@ -110,6 +150,22 @@ public class HackerService {
 		Hacker result;
 
 		result = this.hackerRepository.save(hacker);
+
+		return result;
+	}
+
+	public Collection<Hacker> findHackersByPositionId(final int positionId) {
+		Collection<Hacker> result;
+
+		result = this.hackerRepository.findHackersByPositionId(positionId);
+
+		return result;
+	}
+
+	public Collection<Hacker> findHackersByProblemId(final int problemId) {
+		Collection<Hacker> result;
+
+		result = this.hackerRepository.findHackersByProblemId(problemId);
 
 		return result;
 	}
@@ -126,6 +182,70 @@ public class HackerService {
 		Hacker result;
 
 		result = this.hackerRepository.findHackerByCurriculaId(curriculaId);
+
+		return result;
+	}
+
+	public Hacker findHackerByPersonalDataId(final int personalDataId) {
+		Hacker result;
+
+		result = this.hackerRepository.findHackerByPersonalDataId(personalDataId);
+
+		return result;
+	}
+
+	public Hacker findHackerByPositionDataId(final int positionDataId) {
+		Hacker result;
+
+		result = this.hackerRepository.findHackerByPositionDataId(positionDataId);
+
+		return result;
+	}
+
+	public Hacker findHackerByEducationDataId(final int educationDataId) {
+		Hacker result;
+
+		result = this.hackerRepository.findHackerByEducationDataId(educationDataId);
+
+		return result;
+	}
+
+	public Hacker findHackerByMiscellaneousDataId(final int miscellaneousDataId) {
+		Hacker result;
+
+		result = this.hackerRepository.findHackerByMiscellaneousDataId(miscellaneousDataId);
+
+		return result;
+	}
+
+	public Collection<Hacker> findHackersByFinderCriteria(final int positionId) {
+		final Position positionCheck = this.positionService.findOne(positionId);
+		final Collection<Hacker> result = new HashSet<>();
+		final Collection<Hacker> hackers = this.hackerRepository.findAll();
+
+		for (final Hacker h : hackers) {
+			final Finder f = h.getFinder();
+			final Calendar cal = Calendar.getInstance();
+			Collection<Position> positionsFinder = new HashSet<>();
+			if (f.getKeyWord() != null)
+				if (!(f.getKeyWord().isEmpty() && f.getDeadline() == null && f.getMinSalary() == null && f.getMaxDeadline() == null)) {
+					final String keyWord = f.getKeyWord().toLowerCase();
+					final Date deadline = f.getDeadline();
+					Double minSalary = f.getMinSalary();
+					Date maxDeadline = f.getMaxDeadline();
+
+					if (f.getMinSalary() == null)
+						minSalary = 0.0;
+					if (maxDeadline == null) {
+						cal.set(3000, 0, 1);
+						maxDeadline = cal.getTime();
+					}
+					positionsFinder = this.positionService.findPositionsFromFinder(keyWord, deadline, minSalary, maxDeadline);
+				}
+
+			if (positionsFinder.contains(positionCheck))
+				result.add(h);
+		}
 
 		return result;
 	}

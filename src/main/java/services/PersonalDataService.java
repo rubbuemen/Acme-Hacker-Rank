@@ -11,6 +11,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.Validator;
 
 import repositories.PersonalDataRepository;
+import domain.Actor;
+import domain.Hacker;
 import domain.PersonalData;
 
 @Service
@@ -21,8 +23,13 @@ public class PersonalDataService {
 	@Autowired
 	private PersonalDataRepository	personalDataRepository;
 
-
 	// Supporting services
+	@Autowired
+	private ActorService			actorService;
+
+	@Autowired
+	private HackerService			hackerService;
+
 
 	// Simple CRUD methods
 	public PersonalData create() {
@@ -53,15 +60,23 @@ public class PersonalDataService {
 		return result;
 	}
 
+	// R17.1
 	public PersonalData save(final PersonalData personalData) {
 		Assert.notNull(personalData);
 
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginHacker(actorLogged);
+
 		PersonalData result;
 
-		if (personalData.getId() == 0)
+		if (personalData.getId() != 0) {
+			final Hacker hackerOwner = this.hackerService.findHackerByPersonalDataId(personalData.getId());
+			Assert.isTrue(actorLogged.equals(hackerOwner), "The logged actor is not the owner of this entity");
 			result = this.personalDataRepository.save(personalData);
-		else
-			result = this.personalDataRepository.save(personalData);
+		}
+
+		result = this.personalDataRepository.save(personalData);
 
 		return result;
 	}
@@ -74,8 +89,25 @@ public class PersonalDataService {
 		this.personalDataRepository.delete(personalData);
 	}
 
-
 	// Other business methods
+	public PersonalData findPersonalDataHackerLogged(final int personalDataId) {
+		Assert.isTrue(personalDataId != 0);
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginHacker(actorLogged);
+
+		final Hacker hackerOwner = this.hackerService.findHackerByPersonalDataId(personalDataId);
+		Assert.isTrue(actorLogged.equals(hackerOwner), "The logged actor is not the owner of this entity");
+
+		PersonalData result;
+
+		result = this.personalDataRepository.findOne(personalDataId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 
 	// Reconstruct methods
 	@Autowired
@@ -85,13 +117,14 @@ public class PersonalDataService {
 	public PersonalData reconstruct(final PersonalData personalData, final BindingResult binding) {
 		PersonalData result;
 
-		if (personalData.getId() == 0)
-			result = personalData;
-		else {
-			result = this.personalDataRepository.findOne(personalData.getId());
-			Assert.notNull(result, "This entity does not exist");
-
-		}
+		//No se estará creando desde aquí, unicamente se editará
+		result = this.personalDataRepository.findOne(personalData.getId());
+		Assert.notNull(result, "This entity does not exist");
+		result.setName(personalData.getName());
+		result.setStatement(personalData.getStatement());
+		result.setPhoneNumber(personalData.getPhoneNumber());
+		result.setGitHubProfile(personalData.getGitHubProfile());
+		result.setLinkedInProfile(personalData.getLinkedInProfile());
 
 		this.validator.validate(result, binding);
 

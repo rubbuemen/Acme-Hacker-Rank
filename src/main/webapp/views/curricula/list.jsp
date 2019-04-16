@@ -19,14 +19,25 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table pagesize="5" class="displaytag" name="entidades" requestURI="${requestURI}" id="row">
+<display:table pagesize="5" class="displaytag" name="curriculas" requestURI="${requestURI}" id="row">
 
-	<spring:message code="entidad.traduccion" var="variable" />
-	<display:column property="atributo" title="${variable}" />
+	<spring:message code="personalData.name" var="name" />
+	<display:column property="personalData.name" title="${name}" />
+	
+	<spring:message code="personalData.statement" var="statement" />
+	<display:column property="personalData.statement" title="${statement}" />
+	
+	<spring:message code="curricula.show" var="showH" />
+	<display:column title="${showH}">
+		<acme:button url="curricula/hacker/show.do?curriculaId=${row.id}" code="button.show" />
+	</display:column>
+	
+	<spring:message code="curricula.delete" var="deleteH" />
+	<display:column title="${deleteH}">
+		<acme:button url="curricula/hacker/delete.do?curriculaId=${row.id}" code="button.delete" />
+	</display:column>
 			
 </display:table>
 
 
-<acme:button url="" code="button.create" />
-
-<acme:button url="" code="button.back" />
+<acme:button url="curricula/hacker/create.do" code="button.create" />

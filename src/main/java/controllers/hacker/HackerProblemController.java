@@ -33,7 +33,7 @@ public class HackerProblemController extends AbstractController {
 		ModelAndView result;
 		Problem problem;
 
-		problem = this.problemService.findOne(problemId);
+		problem = this.problemService.findProblemHackerLogged(problemId);
 
 		result = new ModelAndView("problem/show");
 

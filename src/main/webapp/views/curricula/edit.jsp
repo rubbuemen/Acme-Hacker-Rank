@@ -18,18 +18,34 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="${actionURL}" modelAttribute="entidad">
+<form:form action="${actionURL}" modelAttribute="curricula">
+
 	<form:hidden path="id" />
 	<form:hidden path="version" />
-
-	<jstl:choose>
-		<jstl:when test="${entidad.id == 0}">
-			<acme:submit name="save" code="button.register" />
-		</jstl:when>
-		<jstl:otherwise>
-			<acme:submit name="save" code="button.save" />
-		</jstl:otherwise>
-	</jstl:choose>
 	
-	<acme:cancel url="" code="button.cancel" />
+	<fieldset>
+	    <legend><spring:message code="curricula.personalData"/></legend>
+	    <acme:textbox code="personalData.name" path="personalData.name" placeholder="Lorem Ipsum"/>
+		<br />
+	
+		<acme:textbox code="personalData.statement" path="personalData.statement" placeholder="Lorem Ipsum"/>
+		<br />
+		
+		<acme:textbox code="personalData.phoneNumber" path="personalData.phoneNumber" placeholder="+999 (999) 999999999" type="tel"/>
+		<br />
+		
+		<acme:textbox code="personalData.gitHubProfile" path="personalData.gitHubProfile" placeholder="http://LoremIpsum.com" type="url" />
+		<br />
+		
+		<acme:textbox code="personalData.linkedInProfile" path="personalData.linkedInProfile" placeholder="http://LoremIpsum.com" type="url" />
+		<br />
+	</fieldset>
+	
+	<br /><br />
+	<spring:message code="curricula.createMoreDatas"/>.
+	<br /><br />
+	
+	<acme:submit name="save" code="button.register" />
+	<acme:cancel url="curricula/hacker/list.do" code="button.cancel" />
+
 </form:form>

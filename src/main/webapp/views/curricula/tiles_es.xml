@@ -14,7 +14,7 @@
 		<put-attribute name="title" value="Crear curriculum" />
 		<put-attribute name="body" value="/views/curricula/edit.jsp" />
 	</definition>
-	
+
 	<definition name="curricula/edit" extends="master.page">
 		<put-attribute name="title" value="Editar curriculum" />
 		<put-attribute name="body" value="/views/curricula/edit.jsp" />
@@ -23,6 +23,11 @@
 	<definition name="curricula/list" extends="master.page">
 		<put-attribute name="title" value="Lista de curriculums" />
 		<put-attribute name="body" value="/views/curricula/list.jsp" />
+	</definition>
+
+	<definition name="curricula/show" extends="master.page">
+		<put-attribute name="title" value="Mostrar curriculum" />
+		<put-attribute name="body" value="/views/curricula/show.jsp" />
 	</definition>
 
 </tiles-definitions>

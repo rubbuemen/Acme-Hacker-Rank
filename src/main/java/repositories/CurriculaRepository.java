@@ -24,4 +24,16 @@ public interface CurriculaRepository extends JpaRepository<Curricula, Integer> {
 	@Query("select c from Curricula c join c.hacker h where c.isCopy = 0 and h.id = ?1 ")
 	Collection<Curricula> findCurriculasByHackerId(int hackerId);
 
+	@Query("select c from Curricula c join c.personalData pd where pd.id = ?1")
+	Curricula findCurriculaByPersonalDataId(int personalDataId);
+
+	@Query("select c from Curricula c join c.positionDatas pd where pd.id = ?1")
+	Curricula findCurriculaByPositionDataId(int positionDataId);
+
+	@Query("select c from Curricula c join c.educationDatas ed where ed.id = ?1")
+	Curricula findCurriculaByEducationDataId(int educationDataId);
+
+	@Query("select c from Curricula c join c.miscellaneousDatas md where md.id = ?1")
+	Curricula findCurriculaByMiscellaneousDataId(int miscellaneousDataId);
+
 }

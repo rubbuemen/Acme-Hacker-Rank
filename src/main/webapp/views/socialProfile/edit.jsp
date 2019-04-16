@@ -18,18 +18,28 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="${actionURL}" modelAttribute="entidad">
+<form:form action="${actionURL}" modelAttribute="socialProfile">
+
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 
+	<acme:textbox code="socialProfile.nick" path="nick" placeholder="LoremIpsum"/>
+	<br />
+
+	<acme:textbox code="socialProfile.socialNetworkName" path="socialNetworkName" placeholder="Lorem Ipsum"/>
+	<br />
+	
+	<acme:textbox code="socialProfile.profileLink" path="profileLink" placeholder="http://Loremipsum.com" type="url" />
+	<br />
+
 	<jstl:choose>
-		<jstl:when test="${entidad.id == 0}">
+		<jstl:when test="${socialProfile.id == 0}">
 			<acme:submit name="save" code="button.register" />
 		</jstl:when>
 		<jstl:otherwise>
 			<acme:submit name="save" code="button.save" />
 		</jstl:otherwise>
 	</jstl:choose>
-	
-	<acme:cancel url="" code="button.cancel" />
+	<acme:cancel url="socialProfile/list.do" code="button.cancel" />
+
 </form:form>

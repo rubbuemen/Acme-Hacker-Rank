@@ -11,18 +11,18 @@
 <tiles-definitions>
 
 	<definition name="message/create" extends="master.page">
-		<put-attribute name="title" value="Crear mensaje" />
-		<put-attribute name="body" value="/views/message/edit.jsp" />
+		<put-attribute name="title" value="Enviar mensaje" />
+		<put-attribute name="body" value="/views/message/create.jsp" />
 	</definition>
 	
-	<definition name="message/edit" extends="master.page">
-		<put-attribute name="title" value="Editar mensaje" />
-		<put-attribute name="body" value="/views/message/edit.jsp" />
-	</definition>
-
 	<definition name="message/list" extends="master.page">
 		<put-attribute name="title" value="Lista de mensajes" />
 		<put-attribute name="body" value="/views/message/list.jsp" />
+	</definition>
+	
+	<definition name="message/show" extends="master.page">
+		<put-attribute name="title" value="Mostrar mensaje" />
+		<put-attribute name="body" value="/views/message/show.jsp" />
 	</definition>
 
 </tiles-definitions>

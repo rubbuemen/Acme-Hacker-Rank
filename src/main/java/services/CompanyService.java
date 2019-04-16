@@ -14,7 +14,11 @@ import org.springframework.validation.Validator;
 import repositories.CompanyRepository;
 import security.Authority;
 import security.UserAccount;
+import domain.Actor;
+import domain.Application;
 import domain.Company;
+import domain.Curricula;
+import domain.Hacker;
 import domain.Position;
 import domain.Problem;
 import forms.CompanyForm;
@@ -33,6 +37,21 @@ public class CompanyService {
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private PositionService		positionService;
+
+	@Autowired
+	private ApplicationService	applicationService;
+
+	@Autowired
+	private CurriculaService	curriculaService;
+
+	@Autowired
+	private ProblemService		problemService;
+
+	@Autowired
+	private HackerService		hackerService;
 
 
 	// Simple CRUD methods
@@ -92,6 +111,34 @@ public class CompanyService {
 		Assert.isTrue(company.getId() != 0);
 		Assert.isTrue(this.companyRepository.exists(company.getId()));
 
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginCompany(actorLogged);
+
+		final Company companyLogged = (Company) actorLogged;
+
+		this.actorService.deleteEntities(companyLogged);
+
+		final Collection<Position> positions = new HashSet<>(companyLogged.getPositions());
+		for (final Position p : positions) {
+			final Collection<Application> applications = new HashSet<>(p.getApplications());
+			for (final Application a : applications) {
+				final Hacker h = a.getHacker();
+				final Curricula c = a.getCurricula();
+				p.getApplications().remove(a);
+				h.getApplications().remove(a);
+				this.applicationService.delete(a);
+				this.curriculaService.deleteAuxiliar(c);
+				this.hackerService.saveAuxiliar(h);
+			}
+			this.positionService.deleteAuxiliar(p);
+		}
+
+		final Collection<Problem> problems = new HashSet<>(companyLogged.getProblems());
+		for (final Problem p : problems)
+			this.problemService.deleteAuxiliar(p);
+
+		this.companyRepository.flush();
 		this.companyRepository.delete(company);
 	}
 
@@ -116,6 +163,14 @@ public class CompanyService {
 		Company result;
 
 		result = this.companyRepository.findCompanyByApplicationId(applicationId);
+
+		return result;
+	}
+
+	public Collection<Company> findCompaniesByCurriculaId(final int curriculaId) {
+		Collection<Company> result;
+
+		result = this.companyRepository.findCompaniesByCurriculaId(curriculaId);
 
 		return result;
 	}

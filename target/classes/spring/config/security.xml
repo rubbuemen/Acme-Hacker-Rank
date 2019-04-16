@@ -49,11 +49,18 @@
 		<security:intercept-url pattern="/position/company/**" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/problem/company/**" access="hasRole('COMPANY')" />
 		<security:intercept-url pattern="/application/company/**" access="hasRole('COMPANY')" />
+		<security:intercept-url pattern="/curricula/company/**" access="hasRole('COMPANY')" />
 		
 		<security:intercept-url pattern="/actor/hacker/**" access="hasRole('HACKER')" />
 		<security:intercept-url pattern="/position/hacker/**" access="hasRole('HACKER')" />
 		<security:intercept-url pattern="/problem/hacker/**" access="hasRole('HACKER')" />
 		<security:intercept-url pattern="/application/hacker/**" access="hasRole('HACKER')" />
+		<security:intercept-url pattern="/curricula/hacker/**" access="hasRole('HACKER')" />
+		<security:intercept-url pattern="/personalData/hacker/**" access="hasRole('HACKER')" />
+		<security:intercept-url pattern="/positionData/hacker/**" access="hasRole('HACKER')" />
+		<security:intercept-url pattern="/educationData/hacker/**" access="hasRole('HACKER')" />
+		<security:intercept-url pattern="/miscellaneousData/hacker/**" access="hasRole('HACKER')" />
+		<security:intercept-url pattern="/finder/hacker/**" access="hasRole('HACKER')" />
 		
 		<security:intercept-url pattern="/actor/administrator/**" access="hasRole('ADMIN')" />
 		<security:intercept-url pattern="/systemConfiguration/administrator/**" access="hasRole('ADMIN')" />

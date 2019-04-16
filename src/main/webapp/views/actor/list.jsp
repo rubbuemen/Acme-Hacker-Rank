@@ -19,14 +19,68 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<display:table pagesize="5" class="displaytag" name="entidades" requestURI="${requestURI}" id="row">
-
-	<spring:message code="entidad.traduccion" var="variable" />
-	<display:column property="atributo" title="${variable}" />
-			
+<h3><spring:message code="actor.actorsToBan" /></h3>
+<display:table pagesize="5" class="displaytag" name="actorsToBan" id="row1">
+	
+	<spring:message code="actor.name" var="nameH" />
+	<display:column property="name" title="${nameH}" />
+	
+	<spring:message code="actor.surnames" var="surnamesH" />
+	<display:column property="surnames" title="${surnamesH}" />
+	
+	<spring:message code="actor.email" var="emailH" />
+	<display:column property="email" title="${emailH}" />
+	
+	<spring:message code="actor.username" var="usernameH" />
+	<display:column property="userAccount.username" title="${usernameH}" />
+	
+	<spring:message code="actor.isSpammer" var="isSpammerH" />
+	<display:column title="${isSpammerH}">
+		<jstl:if test="${row1.isSpammer == true}">
+			<spring:message code="actor.yes" var="yes"/>
+			<jstl:out value="${yes}" />
+		</jstl:if>
+		<jstl:if test="${row1.isSpammer == false}">
+		<spring:message code="actor.no" var="no"/>
+			<jstl:out value="${no}" />
+		</jstl:if>
+	</display:column>
+	
+	<spring:message code="actor.ban" var="ban" />
+	<display:column title="${ban}">
+			<acme:button url="systemConfiguration/administrator/ban.do?actorId=${row1.id}" code="button.ban" />
+	</display:column>
 </display:table>
 
-
-<acme:button url="" code="button.create" />
-
-<acme:button url="" code="button.back" />
+<h3><spring:message code="actor.actorsBanned" /></h3>
+<display:table pagesize="5" class="displaytag" name="actorsBanned" id="row2">
+	
+	<spring:message code="actor.name" var="nameH" />
+	<display:column property="name" title="${nameH}" />
+	
+	<spring:message code="actor.surnames" var="surnamesH" />
+	<display:column property="surnames" title="${surnamesH}" />
+	
+	<spring:message code="actor.email" var="emailH" />
+	<display:column property="email" title="${emailH}" />
+	
+	<spring:message code="actor.username" var="usernameH" />
+	<display:column property="userAccount.username" title="${usernameH}" />
+	
+	<spring:message code="actor.isSpammer" var="isSpammerH" />
+	<display:column title="${isSpammerH}">
+		<jstl:if test="${row2.isSpammer == true}">
+			<spring:message code="actor.yes" var="yes"/>
+			<jstl:out value="${yes}" />
+		</jstl:if>
+		<jstl:if test="${row2.isSpammer == false}">
+		<spring:message code="actor.no" var="no"/>
+			<jstl:out value="${no}" />
+		</jstl:if>
+	</display:column>
+	
+	<spring:message code="actor.ban" var="ban" />
+	<display:column title="${ban}">
+			<acme:button url="systemConfiguration/administrator/unban.do?actorId=${row2.id}" code="button.unban" />
+	</display:column>
+</display:table>

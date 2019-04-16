@@ -52,3 +52,4 @@
 </ul>
 
 <acme:button url="systemConfiguration/administrator/edit.do" code="button.edit" /><br /><br />
+<acme:button url="systemConfiguration/administrator/computeSpammer.do" code="button.computeSpammer" />

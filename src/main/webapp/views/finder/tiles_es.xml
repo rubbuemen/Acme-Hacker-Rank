@@ -10,19 +10,9 @@
 
 <tiles-definitions>
 
-	<definition name="finder/create" extends="master.page">
-		<put-attribute name="title" value="Crear buscador" />
-		<put-attribute name="body" value="/views/finder/edit.jsp" />
-	</definition>
-	
 	<definition name="finder/edit" extends="master.page">
-		<put-attribute name="title" value="Editar buscador" />
+		<put-attribute name="title" value="Buscar puestos" />
 		<put-attribute name="body" value="/views/finder/edit.jsp" />
-	</definition>
-
-	<definition name="finder/list" extends="master.page">
-		<put-attribute name="title" value="Lista de buscadores" />
-		<put-attribute name="body" value="/views/finder/list.jsp" />
 	</definition>
 
 </tiles-definitions>

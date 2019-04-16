@@ -18,18 +18,26 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="${actionURL}" modelAttribute="entidad">
+<form:form modelAttribute="messageEntity">
+
 	<form:hidden path="id" />
 	<form:hidden path="version" />
 
-	<jstl:choose>
-		<jstl:when test="${entidad.id == 0}">
-			<acme:submit name="save" code="button.register" />
-		</jstl:when>
-		<jstl:otherwise>
-			<acme:submit name="save" code="button.save" />
-		</jstl:otherwise>
-	</jstl:choose>
+	<jstl:if test="${broadcast != true}">
+		<acme:select items="${recipients}" multiple="true" itemLabel="userAccount.username" code="message.recipients" path="recipients"/>
+		<br />
+	</jstl:if>
 	
-	<acme:cancel url="" code="button.cancel" />
+	<acme:textbox code="message.subject" path="subject" placeholder="Lorem Ipsum"/>
+	<br />
+	
+	<acme:textarea code="message.body" path="body" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at auctor massa" />
+	<br />
+	
+	<acme:textarea code="message.tags" path="tags" placeholder="Lorem ipsum, Lorem ipsum, Lorem ipsum, Lorem ipsum" />
+	<br />
+
+	<acme:submit name="save" code="button.send" />
+	<acme:cancel url="message/list.do" code="button.cancel" />
+
 </form:form>

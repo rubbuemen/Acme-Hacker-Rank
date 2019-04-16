@@ -9,14 +9,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
-import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 
 import repositories.ActorRepository;
 import security.Authority;
 import security.LoginService;
 import security.UserAccount;
 import domain.Actor;
+import domain.Company;
 import domain.CreditCard;
 
 @Service
@@ -33,6 +32,12 @@ public class ActorService {
 
 	@Autowired
 	private SystemConfigurationService	systemConfigurationService;
+
+	@Autowired
+	private MessageService				messageService;
+
+	@Autowired
+	private SocialProfileService		socialProfileService;
 
 
 	// Simple CRUD methods
@@ -90,12 +95,28 @@ public class ActorService {
 		return result;
 	}
 
-	public void delete(final Actor actor) {
+	public Actor saveAuxiliar(final Actor actor) {
+		Assert.notNull(actor);
+
+		Actor result;
+
+		result = this.actorRepository.save(actor);
+
+		return result;
+	}
+
+	public void deleteEntities(final Actor actor) {
 		Assert.notNull(actor);
 		Assert.isTrue(actor.getId() != 0);
 		Assert.isTrue(this.actorRepository.exists(actor.getId()));
 
-		this.actorRepository.delete(actor);
+		final Actor actorLogged = this.findActorLogged();
+		Assert.notNull(actorLogged);
+
+		this.messageService.deleteActorFromRecipientsMessage();
+		this.messageService.deleteActorFromSenderMessage();
+		this.socialProfileService.deleteSocialProfiles();
+
 	}
 
 	// Other business methods
@@ -182,30 +203,114 @@ public class ActorService {
 		return result;
 	}
 
+	public Actor findActorBySocialProfileId(final int socialProfileId) {
+		Assert.isTrue(socialProfileId != 0);
 
-	// Reconstruct methods
-	@Autowired
-	private Validator	validator;
-
-
-	public Actor reconstruct(final Actor actor, final BindingResult binding) {
 		Actor result;
 
-		if (actor.getId() == 0)
-			result = actor;
-		else {
-			result = this.actorRepository.findOne(actor.getId());
-			Assert.notNull(result, "This entity does not exist");
+		result = this.actorRepository.findActorBySocialProfileId(socialProfileId);
+		return result;
+	}
 
-		}
+	public Actor findActorByMessageId(final int messageId) {
+		Assert.isTrue(messageId != 0);
 
-		this.validator.validate(result, binding);
+		Actor result;
+
+		result = this.actorRepository.findActorByMessageId(messageId);
+		return result;
+	}
+
+	public Collection<Actor> findAllActorsExceptLogged() {
+		Collection<Actor> result;
+
+		final Actor actorLogged = this.findActorLogged();
+		final Actor systemActor = this.actorRepository.getSystemActor();
+		final Actor deletedActor = this.actorRepository.getDeletedActor();
+		result = this.actorRepository.findAll();
+		result.remove(actorLogged);
+		result.remove(systemActor);
+		result.remove(deletedActor);
 
 		return result;
 	}
 
-	public void flush() {
-		this.actorRepository.flush();
+	public Collection<Actor> findActorsToBan() {
+		final Actor actorLogged = this.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.checkUserLoginAdministrator(actorLogged);
+
+		Collection<Actor> result;
+
+		result = this.actorRepository.findActorsToBan();
+		return result;
 	}
 
+	public Collection<Actor> findActorsBanned() {
+		final Actor actorLogged = this.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.checkUserLoginAdministrator(actorLogged);
+
+		Collection<Actor> result;
+
+		result = this.actorRepository.findActorsBanned();
+		return result;
+	}
+
+	public void banActor(final Actor actor) {
+		final Actor actorLogged = this.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.checkUserLoginAdministrator(actorLogged);
+
+		final UserAccount userAccount = actor.getUserAccount();
+		userAccount.setStatusAccount(false);
+		this.userAccountService.save(userAccount);
+	}
+
+	public void unbanActor(final Actor actor) {
+		final Actor actorLogged = this.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.checkUserLoginAdministrator(actorLogged);
+
+		final UserAccount userAccount = actor.getUserAccount();
+		userAccount.setStatusAccount(true);
+		this.userAccountService.save(userAccount);
+	}
+
+	public StringBuilder exportData() {
+		final Actor actorLogged = this.findActorLogged();
+
+		final StringBuilder sb = new StringBuilder();
+		sb.append(actorLogged.getName());
+		sb.append(';');
+		sb.append(actorLogged.getSurnames());
+		sb.append(';');
+		sb.append(actorLogged.getVATNumber());
+		sb.append(';');
+		sb.append(actorLogged.getCreditCard().getHolder());
+		sb.append(';');
+		sb.append(actorLogged.getCreditCard().getMake());
+		sb.append(';');
+		sb.append(actorLogged.getCreditCard().getNumber());
+		sb.append(';');
+		sb.append(actorLogged.getCreditCard().getExpirationMonth());
+		sb.append(';');
+		sb.append(actorLogged.getCreditCard().getExpirationYear());
+		sb.append(';');
+		sb.append(actorLogged.getCreditCard().getCvv());
+		sb.append(';');
+		sb.append(actorLogged.getEmail());
+		sb.append(';');
+		sb.append(actorLogged.getPhoneNumber());
+		sb.append(';');
+		sb.append(actorLogged.getAddress());
+		sb.append(';');
+		sb.append(actorLogged.getPhoto());
+		if (actorLogged instanceof Company) {
+			sb.append(';');
+			sb.append(((Company) actorLogged).getCommercialName());
+		}
+		sb.append('\n');
+		return sb;
+	}
 }

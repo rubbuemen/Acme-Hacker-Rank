@@ -1,13 +1,17 @@
 
 package services;
 
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Locale;
 import java.util.Map;
 
 import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
@@ -19,6 +23,8 @@ import domain.Actor;
 import domain.Application;
 import domain.Company;
 import domain.Finder;
+import domain.Hacker;
+import domain.Message;
 import domain.Position;
 import domain.Problem;
 
@@ -42,6 +48,12 @@ public class PositionService {
 
 	@Autowired
 	private FinderService		finderService;
+
+	@Autowired
+	private MessageService		messageService;
+
+	@Autowired
+	private HackerService		hackerService;
 
 
 	// Simple CRUD methods
@@ -114,7 +126,6 @@ public class PositionService {
 			positionsCompanyLogged.add(result);
 			companyLogged.setPositions(positionsCompanyLogged);
 			this.companyService.save(companyLogged);
-
 		} else {
 			final Company companyOwner = this.companyService.findCompanyByPositionId(position.getId());
 			Assert.isTrue(actorLogged.equals(companyOwner), "The logged actor is not the owner of this entity");
@@ -123,7 +134,6 @@ public class PositionService {
 
 		return result;
 	}
-
 	//R9.1
 	public void delete(final Position position) {
 		Assert.notNull(position);
@@ -145,6 +155,32 @@ public class PositionService {
 		positionsActorLogged.remove(position);
 		companyLogged.setPositions(positionsActorLogged);
 		this.companyService.save(companyLogged);
+
+		this.positionRepository.delete(position);
+	}
+
+	public void deleteAuxiliar(final Position position) {
+		Assert.notNull(position);
+		Assert.isTrue(position.getId() != 0);
+		Assert.isTrue(this.positionRepository.exists(position.getId()));
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+
+		final Company companyLogged = (Company) actorLogged;
+
+		final Collection<Position> positionsActorLogged = companyLogged.getPositions();
+		positionsActorLogged.remove(position);
+		companyLogged.setPositions(positionsActorLogged);
+		this.companyService.save(companyLogged);
+
+		final Collection<Finder> finders = this.finderService.findAll();
+		for (final Finder f : finders) {
+			final Collection<Position> positionsFinders = f.getPositions();
+			positionsFinders.remove(position);
+			f.setPositions(positionsFinders);
+			this.finderService.save(f);
+		}
 
 		this.positionRepository.delete(position);
 	}
@@ -229,6 +265,34 @@ public class PositionService {
 
 		result = this.positionRepository.save(position);
 
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+
+		final Company companyLogged = (Company) actorLogged;
+
+		// R27
+		final Collection<Hacker> hackers = this.hackerService.findHackersByFinderCriteria(result.getId());
+		if (!hackers.isEmpty()) {
+			final Message message = this.messageService.create();
+
+			final Locale locale = LocaleContextHolder.getLocale();
+			if (locale.getLanguage().equals("es")) {
+				message.setSubject("Nuevo puesto coincidente con su búsqueda");
+				message.setBody("La empresa " + companyLogged.getCommercialName() + " ha publicado un nuevo puesto que coincide con los criterios de búsqueda de su buscador");
+			} else {
+				message.setSubject("New position matching your search");
+				message.setBody("The company " + companyLogged.getCommercialName() + " has published a new position that matches the search criteria of your finder");
+			}
+
+			final Actor sender = this.actorService.getSystemActor();
+			message.setSender(sender);
+
+			final Collection<Actor> recipients = new HashSet<>();
+			recipients.addAll(hackers);
+			message.setRecipients(recipients);
+			this.messageService.save(message, true);
+		}
+
 		return result;
 	}
 
@@ -248,6 +312,27 @@ public class PositionService {
 			a.setStatus("REJECTED");
 			final Application application = this.applicationService.saveAuxiliar(a);
 			position.getApplications().add(application);
+			// R27
+			final Company company = this.companyService.findCompanyByApplicationId(application.getId());
+			final Hacker hacker = application.getHacker();
+			final Message message = this.messageService.create();
+
+			final Locale locale = LocaleContextHolder.getLocale();
+			if (locale.getLanguage().equals("es")) {
+				message.setSubject("Una solicitud ha cambiado de estado");
+				message.setBody("La empresa " + company.getCommercialName() + " ha cambiado el estado de la solicitud cuyo momento de creación fue " + application.getMoment() + " a " + application.getStatus());
+			} else {
+				message.setSubject("An application changed status");
+				message.setBody("The company " + company.getCommercialName() + " has changed the status of the application whose moment was " + application.getMoment() + " to " + application.getStatus());
+			}
+
+			final Actor sender = this.actorService.getSystemActor();
+			message.setSender(sender);
+
+			final Collection<Actor> recipients = new HashSet<>();
+			recipients.add(hacker);
+			message.setRecipients(recipients);
+			this.messageService.save(message, true);
 		}
 		position.setIsCancelled(true);
 
@@ -306,6 +391,24 @@ public class PositionService {
 		return result;
 	}
 
+	public Position findPositionHackerLogged(final int positionId) {
+		Assert.isTrue(positionId != 0);
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginHacker(actorLogged);
+
+		final Collection<Hacker> hackersOwner = this.hackerService.findHackersByPositionId(positionId);
+		Assert.isTrue(hackersOwner.contains(actorLogged), "The logged actor is not the owner of this entity");
+
+		Position result;
+
+		result = this.positionRepository.findOne(positionId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
 	public Collection<Position> findPositionsToSelectApplication() {
 		Collection<Position> result;
 
@@ -316,6 +419,41 @@ public class PositionService {
 		result = this.findPositionsFinalModeNotCancelledNotDeadline();
 		final Collection<Position> positionsToRemove = this.positionRepository.findPositionsApplicationsNotRejectedByHackerId(actorLogged.getId());
 		result.removeAll(positionsToRemove);
+
+		return result;
+	}
+
+	public Collection<Position> findPositionsFromFinder(final String keyWord, final Date deadline, final Double minSalary, final Date maxDeadline) {
+		final Collection<Position> result = new HashSet<>();
+		Collection<Position> findPositionsFilterByKeyWord = new HashSet<>();
+		Collection<Position> findPositionsFilterByDeadline = new HashSet<>();
+		Collection<Position> findPositionsFilterByMinSalary = new HashSet<>();
+		Collection<Position> findPositionsFilterByMaxDeadline = new HashSet<>();
+		final Calendar cal = Calendar.getInstance();
+		cal.setTime(maxDeadline);
+
+		if (!keyWord.isEmpty())
+			findPositionsFilterByKeyWord = this.positionRepository.findPositionsFilterByKeyWord(keyWord);
+		if (deadline != null)
+			findPositionsFilterByDeadline = this.positionRepository.findPositionsFilterByDeadline(deadline);
+		if (minSalary != 0.0)
+			findPositionsFilterByMinSalary = this.positionRepository.findPositionsFilterByMinSalary(minSalary);
+		if (cal.get(Calendar.YEAR) != 3000)
+			findPositionsFilterByMaxDeadline = this.positionRepository.findPositionsFilterByMaxDeadline(maxDeadline);
+
+		result.addAll(findPositionsFilterByKeyWord);
+		result.addAll(findPositionsFilterByDeadline);
+		result.addAll(findPositionsFilterByMinSalary);
+		result.addAll(findPositionsFilterByMaxDeadline);
+
+		if (!keyWord.isEmpty())
+			result.retainAll(findPositionsFilterByKeyWord);
+		if (deadline != null)
+			result.retainAll(findPositionsFilterByDeadline);
+		if (minSalary != 0.0)
+			result.retainAll(findPositionsFilterByMinSalary);
+		if (cal.get(Calendar.YEAR) != 3000)
+			result.retainAll(findPositionsFilterByMaxDeadline);
 
 		return result;
 	}

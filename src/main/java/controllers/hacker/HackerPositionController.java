@@ -33,7 +33,7 @@ public class HackerPositionController extends AbstractController {
 		ModelAndView result;
 		Position position;
 
-		position = this.positionService.findOne(positionId);
+		position = this.positionService.findPositionHackerLogged(positionId);
 
 		result = new ModelAndView("position/show");
 

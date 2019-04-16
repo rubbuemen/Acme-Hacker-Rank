@@ -219,11 +219,6 @@
 		<property name="address" value="41005 Sevilla" />
 		<property name="commercialName" value="Apple" />
 		<property name="userAccount" ref="userAccount4" />
-		<property name="messages">
-			<list>
-				<ref bean="message5" />
-			</list>
-		</property>
 		<property name="positions">
 			<list>
 				<ref bean="position1" />
@@ -256,6 +251,7 @@
 		<property name="userAccount" ref="userAccount5" />
 		<property name="messages">
 			<list>
+				<ref bean="message5" />
 				<ref bean="message6" />
 			</list>
 		</property>
@@ -477,7 +473,7 @@
 				<value>RANDOM</value>
 			</list>
 		</property>
-		<property name="flagSpam" value="false" />
+		<property name="flagSpam" value="true" />
 		<property name="sender" ref="company1" />
 		<property name="recipients">
 			<list>
@@ -490,7 +486,11 @@
 		<property name="subject" value="ITS SPAM TIME SEXO SEXO SEXO" />
 		<property name="body"
 			value="sex viagra palabra random sex viagra one million Nigeria. Horrible but fantastic and amazing disaster. Not Bad." />
-		<property name="flagSpam" value="false" />
+		<property name="tags">
+			<list>
+			</list>
+		</property>
+		<property name="flagSpam" value="true" />
 		<property name="sender" ref="company2" />
 		<property name="recipients">
 			<list>
@@ -502,11 +502,15 @@
 		<property name="moment" value="2019/01/22 14:25" />
 		<property name="subject" value="ITS SPAM TIME SEXO SEXO SEXO" />
 		<property name="body" value="Horrible but fantastic. Not Bad." />
-		<property name="flagSpam" value="false" />
-		<property name="sender" ref="administrator1" />
+		<property name="tags">
+			<list>
+			</list>
+		</property>
+		<property name="flagSpam" value="true" />
+		<property name="sender" ref="company1" />
 		<property name="recipients">
 			<list>
-				<ref bean="company1" />
+				<ref bean="company2" />
 			</list>
 		</property>
 	</bean>
@@ -515,6 +519,10 @@
 		<property name="subject" value="ITS POSITIVE WORDS good good good" />
 		<property name="body"
 			value="good fantastic excellent great amazing terrific beautiful" />
+		<property name="tags">
+			<list>
+			</list>
+		</property>
 		<property name="flagSpam" value="false" />
 		<property name="sender" ref="administrator1" />
 		<property name="recipients">

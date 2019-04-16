@@ -14,6 +14,7 @@ import org.springframework.validation.Validator;
 import repositories.ProblemRepository;
 import domain.Actor;
 import domain.Company;
+import domain.Hacker;
 import domain.Position;
 import domain.Problem;
 
@@ -31,6 +32,9 @@ public class ProblemService {
 
 	@Autowired
 	private ActorService		actorService;
+
+	@Autowired
+	private HackerService		hackerService;
 
 
 	// Simple CRUD methods
@@ -121,6 +125,24 @@ public class ProblemService {
 		this.problemRepository.delete(problem);
 	}
 
+	public void deleteAuxiliar(final Problem problem) {
+		Assert.notNull(problem);
+		Assert.isTrue(problem.getId() != 0);
+		Assert.isTrue(this.problemRepository.exists(problem.getId()));
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+
+		final Company companyLogged = (Company) actorLogged;
+
+		final Collection<Problem> problemsActorLogged = companyLogged.getProblems();
+		problemsActorLogged.remove(problem);
+		companyLogged.setProblems(problemsActorLogged);
+		this.companyService.save(companyLogged);
+
+		this.problemRepository.delete(problem);
+	}
+
 	// Other business methods
 
 	public Collection<Problem> findProblemsFinalModeByCompanyLogged() {
@@ -170,7 +192,6 @@ public class ProblemService {
 	}
 
 	public Problem findProblemCompanyLogged(final int problemId) {
-
 		Assert.isTrue(problemId != 0);
 
 		final Actor actorLogged = this.actorService.findActorLogged();
@@ -179,6 +200,24 @@ public class ProblemService {
 
 		final Company companyOwner = this.companyService.findCompanyByProblemId(problemId);
 		Assert.isTrue(actorLogged.equals(companyOwner), "The logged actor is not the owner of this entity");
+
+		Problem result;
+
+		result = this.problemRepository.findOne(problemId);
+		Assert.notNull(result);
+
+		return result;
+	}
+
+	public Problem findProblemHackerLogged(final int problemId) {
+		Assert.isTrue(problemId != 0);
+
+		final Actor actorLogged = this.actorService.findActorLogged();
+		Assert.notNull(actorLogged);
+		this.actorService.checkUserLoginHacker(actorLogged);
+
+		final Collection<Hacker> hackersOwner = this.hackerService.findHackersByProblemId(problemId);
+		Assert.isTrue(hackersOwner.contains(actorLogged), "The logged actor is not the owner of this entity");
 
 		Problem result;
 

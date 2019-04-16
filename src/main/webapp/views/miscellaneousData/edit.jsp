@@ -18,12 +18,19 @@
 
 <%@ taglib prefix="acme" tagdir="/WEB-INF/tags"%>
 
-<form:form action="${actionURL}" modelAttribute="entidad">
+<form:form action="${actionURL}" modelAttribute="miscellaneousData">
 	<form:hidden path="id" />
 	<form:hidden path="version" />
+	
+	<acme:textarea code="miscellaneousData.text" path="text" placeholder="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean at auctor massa"/>
+	<br />
+
+	<acme:textarea code="miscellaneousData.attachments" path="attachments" placeholder="http://Loremipsum.com, http://Loremipsum.com, ..." />
+	<br />
+	
 
 	<jstl:choose>
-		<jstl:when test="${entidad.id == 0}">
+		<jstl:when test="${miscellaneousData.id == 0}">
 			<acme:submit name="save" code="button.register" />
 		</jstl:when>
 		<jstl:otherwise>
@@ -31,5 +38,5 @@
 		</jstl:otherwise>
 	</jstl:choose>
 	
-	<acme:cancel url="" code="button.cancel" />
+	<acme:cancel url="curricula/hacker/show.do?curriculaId=${curricula.id}" code="button.cancel" />
 </form:form>

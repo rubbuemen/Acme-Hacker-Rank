@@ -54,6 +54,11 @@
 		<display:column title="${problem}">
 			<acme:button url="problem/company/show.do?problemId=${row.problem.id}" code="button.show" />
 		</display:column>
+		
+		<spring:message code="curricula.c" var="showH" />
+		<display:column title="${showH}">
+			<acme:button url="curricula/company/show.do?curriculaId=${row.curricula.id}" code="button.show" />
+		</display:column>
 	
 		<spring:message code="application.decideApplication" var="decideApplication" />
 		<display:column title="${decideApplication}">
@@ -73,6 +78,11 @@
 		<spring:message code="application.problem" var="problem" />
 		<display:column title="${problem}">
 			<acme:button url="problem/hacker/show.do?problemId=${row.problem.id}" code="button.show" />
+		</display:column>
+		
+		<spring:message code="curricula.show" var="showH" />
+		<display:column title="${showH}">
+			<acme:button url="curricula/hacker/show.do?curriculaId=${row.curricula.id}" code="button.show" />
 		</display:column>
 		
 		<spring:message code="application.submitSolution" var="submitSolution" />

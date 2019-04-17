@@ -137,6 +137,8 @@ public class CurriculaService {
 		Assert.notNull(actorLogged);
 		this.actorService.checkUserLoginHacker(actorLogged);
 
+		Assert.isTrue(!curricula.getIsCopy(), "You can not edit a copy of your curricula");
+
 		this.curriculaRepository.delete(curricula);
 	}
 
@@ -160,7 +162,7 @@ public class CurriculaService {
 		personalData.setPhoneNumber(curricula.getPersonalData().getPhoneNumber());
 		personalData.setGitHubProfile(curricula.getPersonalData().getGitHubProfile());
 		personalData.setLinkedInProfile(curricula.getPersonalData().getLinkedInProfile());
-		personalData = this.personalDataService.save(personalData);
+		personalData = this.personalDataService.saveAuxiliar(personalData);
 		final Collection<PositionData> positionDatas = new HashSet<>();
 		final Collection<EducationData> educationDatas = new HashSet<>();
 		final Collection<MiscellaneousData> miscellaneousDatas = new HashSet<>();

@@ -97,6 +97,8 @@ public class PositionDataService {
 			Assert.isTrue(actorLogged.equals(hackerOwner), "The logged actor is not the owner of this entity");
 			final Hacker hackerOwner2 = this.hackerService.findHackerByPositionDataId(positionData.getId());
 			Assert.isTrue(actorLogged.equals(hackerOwner2), "The logged actor is not the owner of this entity");
+			final Curricula cur = this.curriculaService.findCurriculaByPositionDataId(positionData.getId());
+			Assert.isTrue(!cur.getIsCopy(), "You can not edit a copy of your curricula");
 			result = this.positionDataRepository.save(positionData);
 		}
 
@@ -122,6 +124,7 @@ public class PositionDataService {
 		this.actorService.checkUserLoginHacker(actorLogged);
 
 		final Curricula curricula = this.curriculaService.findCurriculaByPositionDataId(positionData.getId());
+		Assert.isTrue(!curricula.getIsCopy(), "You can not edit a copy of your curricula");
 
 		final Collection<PositionData> positionDatasCurricula = curricula.getPositionDatas();
 		positionDatasCurricula.remove(positionData);

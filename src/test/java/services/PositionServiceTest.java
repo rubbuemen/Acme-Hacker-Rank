@@ -48,7 +48,7 @@ public class PositionServiceTest extends AbstractTest {
 	 *         *** 1. Listar las "Companies" disponibles sin estar logeado y navegar hacia sus "Positions"
 	 *         Tests negativos: 1
 	 *         *** 1. Intento de listar las "Companies" disponibles sin estar logeado y navegar hacia sus "Positions" de una "Company" inexistente
-	 *         Analisis de cobertura de sentencias: 92,3% 12/13 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 9/9 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -72,7 +72,7 @@ public class PositionServiceTest extends AbstractTest {
 	 *         Caso de uso: buscar "Positions" usando una palabra clave sin estar logeado
 	 *         Tests positivos: 1
 	 *         *** 1. Buscar "Positions" usando una palabra clave sin estar logeado, correctamente
-	 *         Analisis de cobertura de sentencias: 92,3% 12/13 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 9/9 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -96,7 +96,7 @@ public class PositionServiceTest extends AbstractTest {
 	 *         *** 1. Listar "Positions" correctamente
 	 *         Tests negativos: 1
 	 *         *** 1. Intento de listar "Positions" con una autoridad no permitida
-	 *         Analisis de cobertura de sentencias: 100% 20/20 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 23/23 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -132,7 +132,7 @@ public class PositionServiceTest extends AbstractTest {
 	 *         *** 10. Intento de creación de un "Position" con perfil vacio
 	 *         *** 11. Intento de creación de un "Position" con "Problems" que no son de la "Company" logeada
 	 *         *** 12. Intento de creación de un "Position" que está en final mode
-	 *         Analisis de cobertura de sentencias: 100% 75/75 instrucciones
+	 *         Analisis de cobertura de sentencias: 89,2% 124/139 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@SuppressWarnings("unchecked")
@@ -207,7 +207,7 @@ public class PositionServiceTest extends AbstractTest {
 	 *         *** 11. Intento de edición de un "Position" con perfil vacio
 	 *         *** 12. Intento de edición de un "Position" con "Problems" que no son de la "Company" logeada
 	 *         *** 13. Intento de edición de un "Position" que está en final mode
-	 *         Analisis de cobertura de sentencias: 100% 59/59 instrucciones
+	 *         Analisis de cobertura de sentencias: 83,9% 78/93 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@SuppressWarnings("unchecked")
@@ -274,7 +274,7 @@ public class PositionServiceTest extends AbstractTest {
 	 *         *** 1. Intento de eliminación de un "Position" con una autoridad no permitida
 	 *         *** 2. Intento de eliminación de un "Position" que no es de la "Company" logeada
 	 *         *** 3. Intento de eliminación de un "Position" que está en modo final
-	 *         Analisis de cobertura de sentencias: 99% 98/99 instrucciones
+	 *         Analisis de cobertura de sentencias: 98,6% 68/69 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -306,7 +306,7 @@ public class PositionServiceTest extends AbstractTest {
 	 *         *** 2. Intento de cambiar a modo final un "Position" que no es de la "Company" logeada
 	 *         *** 3. Intento de cambiar a modo final un "Position" que ya está en modo final
 	 *         *** 4. Intento de cambiar a modo final un "Position" que que no tiene como mínimo 2 "Problems" asignados
-	 *         Analisis de cobertura de sentencias: 97,5% 39/40 instrucciones
+	 *         Analisis de cobertura de sentencias: 86,9% 113/130 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -340,7 +340,7 @@ public class PositionServiceTest extends AbstractTest {
 	 *         *** 2. Intento de cancelar un "Position" que no es de la "Company" logeada
 	 *         *** 3. Intento de cancelar un "Position" que ya está cancelada
 	 *         *** 4. Intento de cancelar un "Position" que no está en modo final
-	 *         Analisis de cobertura de sentencias: 97,5% 39/40 instrucciones
+	 *         Analisis de cobertura de sentencias: 87% 168/193 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test

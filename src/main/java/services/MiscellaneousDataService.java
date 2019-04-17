@@ -90,6 +90,8 @@ public class MiscellaneousDataService {
 			Assert.isTrue(actorLogged.equals(hackerOwner), "The logged actor is not the owner of this entity");
 			final Hacker hackerOwner2 = this.hackerService.findHackerByMiscellaneousDataId(miscellaneousData.getId());
 			Assert.isTrue(actorLogged.equals(hackerOwner2), "The logged actor is not the owner of this entity");
+			final Curricula cur = this.curriculaService.findCurriculaByMiscellaneousDataId(miscellaneousData.getId());
+			Assert.isTrue(!cur.getIsCopy(), "You can not edit a copy of your curricula");
 			result = this.miscellaneousDataRepository.save(miscellaneousData);
 		}
 
@@ -116,6 +118,7 @@ public class MiscellaneousDataService {
 		this.actorService.checkUserLoginHacker(actorLogged);
 
 		final Curricula curricula = this.curriculaService.findCurriculaByMiscellaneousDataId(miscellaneousData.getId());
+		Assert.isTrue(!curricula.getIsCopy(), "You can not edit a copy of your curricula");
 
 		final Collection<MiscellaneousData> miscellaneousDatasCurricula = curricula.getMiscellaneousDatas();
 		miscellaneousDatasCurricula.remove(miscellaneousData);

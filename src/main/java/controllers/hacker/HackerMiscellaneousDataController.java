@@ -89,7 +89,9 @@ public class HackerMiscellaneousDataController extends AbstractController {
 				result = new ModelAndView("redirect:/curricula/hacker/show.do?curriculaId=" + curricula.getId());
 			}
 		} catch (final Throwable oops) {
-			if (oops.getMessage().equals("The logged actor is not the owner of this entity"))
+			if (oops.getMessage().equals("You can not edit a copy of your curricula"))
+				result = this.createEditModelAndView(miscellaneousData, curricula, "curricula.error.copy");
+			else if (oops.getMessage().equals("The logged actor is not the owner of this entity"))
 				result = this.createEditModelAndView(miscellaneousData, curricula, "hacking.logged.error");
 			else if (oops.getMessage().equals("This entity does not exist"))
 				result = this.createEditModelAndView(null, curricula, "hacking.notExist.error");
@@ -112,7 +114,9 @@ public class HackerMiscellaneousDataController extends AbstractController {
 			result = new ModelAndView("redirect:/curricula/hacker/show.do?curriculaId=" + curricula.getId());
 
 		} catch (final Throwable oops) {
-			if (oops.getMessage().equals("The logged actor is not the owner of this entity"))
+			if (oops.getMessage().equals("You can not edit a copy of your curricula"))
+				result = this.createEditModelAndView(miscellaneousData, curricula, "curricula.error.copy");
+			else if (oops.getMessage().equals("The logged actor is not the owner of this entity"))
 				result = this.createEditModelAndView(miscellaneousData, curricula, "hacking.logged.error");
 			else
 				result = this.createEditModelAndView(miscellaneousData, curricula, "commit.error");

@@ -64,7 +64,7 @@ public class AdministratorServiceTest extends AbstractTest {
 	 *         *** 23. Intento de registrar un "Administrator" usuario ya usado
 	 *         *** 24. Intento de registrar un "Administrator" cuya "CreditCard" tiene un número no numérico
 	 *         *** 25. Intento de registrar un "Administrator" cuya "CreditCard" está caducada
-	 *         Analisis de cobertura de sentencias: 100% 250/250 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 161/161 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -182,7 +182,7 @@ public class AdministratorServiceTest extends AbstractTest {
 	 *         *** 19. Intento de edición como "Administrator" con el email sin cumplir el patrón adecuado
 	 *         *** 20. Intento de edición como "Administrator" cuya "CreditCard" tiene un número no numérico
 	 *         *** 21. Intento de edición como "Administrator" cuya "CreditCard" está caducada
-	 *         Analisis de cobertura de sentencias: 100% 199/199 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 128/128 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test

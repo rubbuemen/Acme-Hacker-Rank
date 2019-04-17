@@ -52,7 +52,7 @@ public class ApplicationServiceTest extends AbstractTest {
 	 *         *** 1. Listar "Applications" correctamente logeado como "Company"
 	 *         Tests negativos: 1
 	 *         *** 1. Intento de listar "Applications" con una autoridad no permitida
-	 *         Analisis de cobertura de sentencias: 100% 20/20 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 23/23 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -79,7 +79,7 @@ public class ApplicationServiceTest extends AbstractTest {
 	 *         *** 1. Intento de aceptar una "Application" con una autoridad no permitida
 	 *         *** 2. Intento de aceptar una "Application" sin tener permisos para ello
 	 *         *** 3. Intento de aceptar una "Application" que no tiene el estado "submitted"
-	 *         Analisis de cobertura de sentencias: 91,9% 34/37 instrucciones
+	 *         Analisis de cobertura de sentencias: 83,3% 125/150 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -111,7 +111,7 @@ public class ApplicationServiceTest extends AbstractTest {
 	 *         *** 1. Intento de rechazar una "Application" con una autoridad no permitida
 	 *         *** 2. Intento de rechazar una "Application" sin tener permisos para ello
 	 *         *** 3. Intento de rechazar una "Application" que no tiene el estado "submitted"
-	 *         Analisis de cobertura de sentencias: 91,9% 34/37 instrucciones
+	 *         Analisis de cobertura de sentencias: 82,6% 119/144 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -141,7 +141,7 @@ public class ApplicationServiceTest extends AbstractTest {
 	 *         *** 1. Listar "Applications" correctamente logeado como "Hacker"
 	 *         Tests negativos: 1
 	 *         *** 1. Intento de listar "Applications" con una autoridad no permitida
-	 *         Analisis de cobertura de sentencias: 100% 20/20 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 23/23 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -168,7 +168,7 @@ public class ApplicationServiceTest extends AbstractTest {
 	 *         *** 1. Intento de creación de una "Application" con una autoridad no permitida
 	 *         *** 2. Intento de creación de una "Application" seleccionando una "Position" no disponible
 	 *         *** 3. Intento de creación de una "Application" seleccionando un "Curricula" que no es tuyo
-	 *         Analisis de cobertura de sentencias: 100% 75/75 instrucciones
+	 *         Analisis de cobertura de sentencias: 84,7% 265/307 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -201,7 +201,7 @@ public class ApplicationServiceTest extends AbstractTest {
 	 *         *** 3. Intento de resolución de una "Application" con explicaciones vacío
 	 *         *** 4. Intento de resolución de una "Application" con enlace de código vacío
 	 *         *** 5. Intento de resolución de una "Application" con enlace de código que no es URL
-	 *         Analisis de cobertura de sentencias: 100% 75/75 instrucciones
+	 *         Analisis de cobertura de sentencias: 84,7% 232/274 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test

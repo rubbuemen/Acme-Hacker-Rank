@@ -181,6 +181,11 @@ public class FinderService {
 
 		result = hacker.getFinder();
 
+		result.setKeyWord(keyWord);
+		result.setDeadline(deadline);
+		result.setMinSalary(minSalary);
+		result.setMaxDeadline(maxDeadline);
+
 		final Calendar cal = Calendar.getInstance();
 
 		if (keyWord.isEmpty() && deadline == null && minSalary == null && maxDeadline == null)

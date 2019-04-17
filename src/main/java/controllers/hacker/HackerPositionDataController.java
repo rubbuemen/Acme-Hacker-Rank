@@ -91,6 +91,8 @@ public class HackerPositionDataController extends AbstractController {
 		} catch (final Throwable oops) {
 			if (oops.getMessage().equals("Start date must be before end date"))
 				result = this.createEditModelAndView(positionData, curricula, "positionData.error.dates");
+			else if (oops.getMessage().equals("You can not edit a copy of your curricula"))
+				result = this.createEditModelAndView(positionData, curricula, "curricula.error.copy");
 			else if (oops.getMessage().equals("The logged actor is not the owner of this entity"))
 				result = this.createEditModelAndView(positionData, curricula, "hacking.logged.error");
 			else if (oops.getMessage().equals("This entity does not exist"))
@@ -114,7 +116,9 @@ public class HackerPositionDataController extends AbstractController {
 			result = new ModelAndView("redirect:/curricula/hacker/show.do?curriculaId=" + curricula.getId());
 
 		} catch (final Throwable oops) {
-			if (oops.getMessage().equals("The logged actor is not the owner of this entity"))
+			if (oops.getMessage().equals("You can not edit a copy of your curricula"))
+				result = this.createEditModelAndView(positionData, curricula, "curricula.error.copy");
+			else if (oops.getMessage().equals("The logged actor is not the owner of this entity"))
 				result = this.createEditModelAndView(positionData, curricula, "hacking.logged.error");
 			else
 				result = this.createEditModelAndView(positionData, curricula, "commit.error");

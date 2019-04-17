@@ -12,6 +12,7 @@ import org.springframework.validation.Validator;
 
 import repositories.PersonalDataRepository;
 import domain.Actor;
+import domain.Curricula;
 import domain.Hacker;
 import domain.PersonalData;
 
@@ -29,6 +30,9 @@ public class PersonalDataService {
 
 	@Autowired
 	private HackerService			hackerService;
+
+	@Autowired
+	private CurriculaService		curriculaService;
 
 
 	// Simple CRUD methods
@@ -73,8 +77,19 @@ public class PersonalDataService {
 		if (personalData.getId() != 0) {
 			final Hacker hackerOwner = this.hackerService.findHackerByPersonalDataId(personalData.getId());
 			Assert.isTrue(actorLogged.equals(hackerOwner), "The logged actor is not the owner of this entity");
+			final Curricula curricula = this.curriculaService.findCurriculaByPersonalDataId(personalData.getId());
+			Assert.isTrue(!curricula.getIsCopy(), "You can not edit a copy of your curricula");
 			result = this.personalDataRepository.save(personalData);
 		}
+
+		result = this.personalDataRepository.save(personalData);
+
+		return result;
+	}
+
+	public PersonalData saveAuxiliar(final PersonalData personalData) {
+		Assert.notNull(personalData);
+		PersonalData result;
 
 		result = this.personalDataRepository.save(personalData);
 

@@ -116,7 +116,9 @@ public class HackerCurriculaController extends AbstractController {
 			result = new ModelAndView("redirect:/curricula/hacker/list.do");
 
 		} catch (final Throwable oops) {
-			if (oops.getMessage().equals("The logged actor is not the owner of this entity"))
+			if (oops.getMessage().equals("You can not edit a copy of your curricula"))
+				result = this.createEditModelAndView(curricula, "curricula.error.copy");
+			else if (oops.getMessage().equals("The logged actor is not the owner of this entity"))
 				result = this.createEditModelAndView(curricula, "hacking.logged.error");
 			else
 				result = this.createEditModelAndView(curricula, "commit.error");

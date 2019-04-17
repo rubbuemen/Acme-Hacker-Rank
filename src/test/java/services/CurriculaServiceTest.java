@@ -45,7 +45,7 @@ public class CurriculaServiceTest extends AbstractTest {
 	 *         *** 1. Listar "Curriculas" del "Hacker" logeado correctamente
 	 *         Tests negativos: 1
 	 *         *** 1. Intento de listar "Curriculas" con una autoridad no permitida
-	 *         Analisis de cobertura de sentencias: 100% 18/18 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 23/23 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -78,7 +78,7 @@ public class CurriculaServiceTest extends AbstractTest {
 	 *         *** 6. Intento de creación de un "Curricula" con enlace de GitHub de "Personal Data" que no es URL
 	 *         *** 7. Intento de creación de un "Curricula" con enlace de LinkedIn de "Personal Data" vacío
 	 *         *** 8. Intento de creación de un "Curricula" con enlace de LinkedIn de "Personal Data" que no es URL
-	 *         Analisis de cobertura de sentencias: 100% 86/86 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 112/112 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 
@@ -91,8 +91,6 @@ public class CurriculaServiceTest extends AbstractTest {
 				"company1", "namePersonalData", "statementPersonalData", "phoneNumberPersonalData", "http://www.gitHubProfilePersonalData.com", "http://www.linkedInPersonalData.com", IllegalArgumentException.class
 			}, {
 				"hacker1", "", "statementPersonalData", "phoneNumberPersonalData", "http://www.gitHubProfilePersonalData.com", "http://www.linkedInPersonalData.com", ConstraintViolationException.class
-			}, {
-				"hacker1", "namePersonalData", "", "phoneNumberPersonalData", "http://www.gitHubProfilePersonalData.com", "http://www.linkedInPersonalData.com", ConstraintViolationException.class
 			}, {
 				"hacker1", "namePersonalData", "", "phoneNumberPersonalData", "http://www.gitHubProfilePersonalData.com", "http://www.linkedInPersonalData.com", ConstraintViolationException.class
 			}, {
@@ -111,6 +109,38 @@ public class CurriculaServiceTest extends AbstractTest {
 		for (int i = 0; i < testingData.length; i++)
 			this.createCurriculaTemplate((String) testingData[i][0], (String) testingData[i][1], (String) testingData[i][2], (String) testingData[i][3], (String) testingData[i][4], (String) testingData[i][5], (Class<?>) testingData[i][6]);
 	}
+
+	/**
+	 * @author Rubén Bueno
+	 *         Requisito funcional: 17.1
+	 *         Caso de uso: eliminar un "Curricula"
+	 *         Tests positivos: 1
+	 *         *** 1. Eliminar un "Curricula" correctamente
+	 *         Tests negativos: 3
+	 *         *** 1. Intento de eliminación de un "Curricula" con una autoridad no permitida
+	 *         *** 2. Intento de eliminación de un "Curricula" que no es del "Hacker" logeado
+	 *         *** 3. Intento de eliminación de un "Curricula" que es una copia
+	 *         Analisis de cobertura de sentencias: 97.5% 39/40 instrucciones
+	 *         Analisis de cobertura de datos: alto
+	 */
+	@Test
+	public void driverDeleteCurricula() {
+		final Object testingData[][] = {
+			{
+				"hacker1", "curricula1", null
+			}, {
+				"company1", "curricula1", IllegalArgumentException.class
+			}, {
+				"hacker2", "curricula1", IllegalArgumentException.class
+			}, {
+				"hacker1", "curricula5", IllegalArgumentException.class
+			}
+		};
+
+		for (int i = 0; i < testingData.length; i++)
+			this.deleteCurriculaTemplate((String) testingData[i][0], (String) testingData[i][1], (Class<?>) testingData[i][2]);
+	}
+
 	// Template methods ------------------------------------------------------
 
 	protected void listCurriculaAuthenticatedTemplate(final String username, final Class<?> expected) {
@@ -161,4 +191,26 @@ public class CurriculaServiceTest extends AbstractTest {
 		super.unauthenticate();
 		super.rollbackTransaction();
 	}
+
+	protected void deleteCurriculaTemplate(final String username, final String curricula, final Class<?> expected) {
+		Class<?> caught = null;
+		Curricula curriculaEntity;
+
+		super.startTransaction();
+
+		try {
+			super.authenticate(username);
+			curriculaEntity = this.curriculaService.findCurriculaHackerLogged(super.getEntityId(curricula));
+			this.curriculaService.delete(curriculaEntity);
+			this.curriculaService.flush();
+		} catch (final Throwable oops) {
+			caught = oops.getClass();
+			this.entityManager.clear();
+		}
+
+		this.checkExceptions(expected, caught);
+		super.unauthenticate();
+		super.rollbackTransaction();
+	}
+
 }

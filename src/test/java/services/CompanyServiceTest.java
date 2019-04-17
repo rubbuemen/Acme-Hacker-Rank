@@ -65,7 +65,7 @@ public class CompanyServiceTest extends AbstractTest {
 	 *         *** 23. Intento de registro como "Company" usuario ya usado
 	 *         *** 24. Intento de registro como "Company" cuya "CreditCard" tiene un número no numérico
 	 *         *** 25. Intento de registro como "Company" cuya "CreditCard" está caducada
-	 *         Analisis de cobertura de sentencias: 100% 250/250 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 155/155 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -184,7 +184,7 @@ public class CompanyServiceTest extends AbstractTest {
 	 *         *** 20. Intento de edición como "Company" con el nombre comercial vacío
 	 *         *** 21. Intento de edición como "Company" cuya "CreditCard" tiene un número no numérico
 	 *         *** 22. Intento de edición como "Company" cuya "CreditCard" está caducada
-	 *         Analisis de cobertura de sentencias: 100% 199/199 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 118/118 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -251,7 +251,7 @@ public class CompanyServiceTest extends AbstractTest {
 	 *         *** 1. Listar las "Positions" disponibles sin estar logeado y navegar hacia su "Company"
 	 *         Tests negativos: 1
 	 *         *** 1. Intento de listar las "Positions" disponibles sin estar logeado y navegar hacia su "Company" de una "Position" inexistente
-	 *         Analisis de cobertura de sentencias: 92,3% 12/13 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 7/7 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test

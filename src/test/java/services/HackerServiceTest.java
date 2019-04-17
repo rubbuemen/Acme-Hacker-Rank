@@ -63,7 +63,7 @@ public class HackerServiceTest extends AbstractTest {
 	 *         *** 22. Intento de registro como "Hacker" usuario ya usado
 	 *         *** 23. Intento de registro como "Hacker" cuya "CreditCard" tiene un número no numérico
 	 *         *** 24. Intento de registro como "Hacker" cuya "CreditCard" está caducada
-	 *         Analisis de cobertura de sentencias: 100% 250/250 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 167/167 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -178,7 +178,7 @@ public class HackerServiceTest extends AbstractTest {
 	 *         *** 19. Intento de edición como "Hacker" con el email sin cumplir el patrón adecuado
 	 *         *** 20. Intento de edición como "Hacker" cuya "CreditCard" tiene un número no numérico
 	 *         *** 21. Intento de edición como "Hacker" cuya "CreditCard" está caducada
-	 *         Analisis de cobertura de sentencias: 100% 199/199 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 130/130 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test

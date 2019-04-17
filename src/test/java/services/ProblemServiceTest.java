@@ -41,7 +41,7 @@ public class ProblemServiceTest extends AbstractTest {
 	 *         *** 1. Listar "Problems" correctamente
 	 *         Tests negativos: 1
 	 *         *** 1. Intento de listar "Problems" con una autoridad no permitida
-	 *         Analisis de cobertura de sentencias: 100% 20/20 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 23/23 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -69,7 +69,7 @@ public class ProblemServiceTest extends AbstractTest {
 	 *         *** 2. Intento de creación de un "Problem" con título vacío
 	 *         *** 3. Intento de creación de un "Problem" con estado vacío
 	 *         *** 4. Intento de creación de un "Problem" que está en final mode
-	 *         Analisis de cobertura de sentencias: 100% 75/75 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 88/88 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -104,7 +104,7 @@ public class ProblemServiceTest extends AbstractTest {
 	 *         *** 3. Intento de edición de un "Problem" con título vacío
 	 *         *** 4. Intento de edición de un "Problem" con estado vacío
 	 *         *** 5. Intento de edición de un "Problem" que está en final mode
-	 *         Analisis de cobertura de sentencias: 100% 75/75 instrucciones
+	 *         Analisis de cobertura de sentencias: 100% 68/68 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -139,7 +139,7 @@ public class ProblemServiceTest extends AbstractTest {
 	 *         *** 1. Intento de eliminación de un "Problem" con una autoridad no permitida
 	 *         *** 2. Intento de eliminación de un "Problem" que no es de la "Company" logeada
 	 *         *** 3. Intento de eliminación de un "Problem" que está en modo final
-	 *         Analisis de cobertura de sentencias: 99% 98/99 instrucciones
+	 *         Analisis de cobertura de sentencias: 98,6% 68/69 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test
@@ -170,7 +170,7 @@ public class ProblemServiceTest extends AbstractTest {
 	 *         *** 1. Intento de cambiar a modo final un "Problem" con una autoridad no permitida
 	 *         *** 2. Intento de cambiar a modo final un "Problem" que no es de la "Company" logeada
 	 *         *** 3. Intento de cambiar a modo final un "Problem" que ya está en modo final
-	 *         Analisis de cobertura de sentencias: 97,5% 39/40 instrucciones
+	 *         Analisis de cobertura de sentencias: 97,3% 36/37 instrucciones
 	 *         Analisis de cobertura de datos: alto
 	 */
 	@Test

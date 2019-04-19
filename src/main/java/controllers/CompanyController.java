@@ -40,7 +40,7 @@ public class CompanyController extends AbstractController {
 		result = new ModelAndView("company/list");
 
 		result.addObject("companies", companies);
-		result.addObject("requestURI", "companies/list.do");
+		result.addObject("requestURI", "company/list.do");
 
 		return result;
 	}

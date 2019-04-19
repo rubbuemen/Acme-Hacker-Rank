@@ -48,7 +48,7 @@ public class PositionController extends AbstractController {
 
 		result.addObject("positions", positions);
 		result.addObject("mapPositionCompany", mapPositionCompany);
-		result.addObject("requestURI", "positions/listGeneric.do");
+		result.addObject("requestURI", "position/listGeneric.do");
 
 		return result;
 	}
@@ -65,7 +65,7 @@ public class PositionController extends AbstractController {
 		result = new ModelAndView("position/listGeneric");
 		result.addObject("positions", positions);
 		result.addObject("mapPositionCompany", mapPositionCompany);
-		result.addObject("requestURI", "positions/listGeneric.do");
+		result.addObject("requestURI", "position/listGeneric.do");
 
 		return result;
 	}

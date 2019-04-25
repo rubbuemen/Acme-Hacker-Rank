@@ -75,7 +75,6 @@ public class PositionService {
 		result.setTicker(ticker);
 		result.setProblems(problems);
 		result.setApplications(applications);
-		result.setTicker(ticker);
 		result.setIsFinalMode(false);
 		result.setIsCancelled(false);
 
